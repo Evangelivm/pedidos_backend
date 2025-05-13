@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0-debian
+    container_name: db_ugel_05
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: pedidospassword
+      MYSQL_DATABASE: sistema_pedidos
+      MYSQL_USER: nestuser
+      MYSQL_PASSWORD: pedidospassword
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true
