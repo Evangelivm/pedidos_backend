@@ -76,11 +76,11 @@ export class ProductosController {
     description: 'The product has been successfully updated.',
   })
   @ApiResponse({ status: 404, description: 'Product not found.' })
-  @UsePipes(new ZodValidationPipe(UpdateProductoSchema))
   @Put(':id')
   update(
-    @Param('id') id: string,
-    @Body() updateProductoDto: UpdateProductoDto,
+    @Param('id') id: number,
+    @Body(new ZodValidationPipe(UpdateProductoSchema))
+    updateProductoDto: UpdateProductoDto,
   ) {
     return this.productosService.update(+id, updateProductoDto);
   }

@@ -88,8 +88,26 @@ export class PedidosService {
         });
       }
 
-      // Return order with details
-      return this.findOne(pedido.id);
+      // Return order with its details using the transactional prisma instance
+      const pedidoConDetalle = await prisma.pedidos.findUnique({
+        where: { id: pedido.id },
+        include: {
+          clientes: true,
+          detalle_pedidos: {
+            include: {
+              productos: true,
+            },
+          },
+          pagos: true,
+          despachos: true,
+        },
+      });
+
+      if (!pedidoConDetalle) {
+        throw new NotFoundException(`Pedido con ID ${pedido.id} no encontrado`);
+      }
+
+      return pedidoConDetalle;
     });
   }
 
@@ -108,9 +126,20 @@ export class PedidosService {
           clientes: true,
           detalle_pedidos: {
             include: {
-              productos: true,
+              productos: {
+                include: {
+                  presentaciones: {
+                    select: {
+                      id: true,
+                      nombre: true,
+                    },
+                  },
+                },
+              },
             },
           },
+          pagos: true,
+          despachos: true,
         },
       }),
       this.prisma.pedidos.count(),
@@ -192,12 +221,21 @@ export class PedidosService {
 
   async findOne(id: number) {
     const pedido = await this.prisma.pedidos.findUnique({
-      where: { id },
+      where: { id: id },
       include: {
         clientes: true,
         detalle_pedidos: {
           include: {
-            productos: true,
+            productos: {
+              include: {
+                presentaciones: {
+                  select: {
+                    id: true,
+                    nombre: true,
+                  },
+                },
+              },
+            },
           },
         },
         pagos: true,
@@ -213,47 +251,84 @@ export class PedidosService {
   }
 
   async update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    try {
-      // Construimos el objeto data explícitamente
-      const data: any = {};
+    const pedido = await this.prisma.pedidos.findUnique({
+      where: { id },
+      include: { detalle_pedidos: true },
+    });
 
-      if (updatePedidoDto.fecha !== undefined) {
-        data.fecha = new Date(updatePedidoDto.fecha);
-      }
-      if (updatePedidoDto.cliente_id !== undefined) {
-        data.cliente_id = updatePedidoDto.cliente_id;
-      }
-      if (updatePedidoDto.subtotal !== undefined) {
-        data.subtotal = updatePedidoDto.subtotal;
-      }
-      if (updatePedidoDto.igv !== undefined) {
-        data.igv = updatePedidoDto.igv;
-      }
-      if (updatePedidoDto.total !== undefined) {
-        data.total = updatePedidoDto.total;
-      }
-      if (updatePedidoDto.estado !== undefined) {
-        data.estado = updatePedidoDto.estado;
-      }
-      if (updatePedidoDto.notas !== undefined) {
-        data.notas = updatePedidoDto.notas;
-      }
-
-      return await this.prisma.pedidos.update({
-        where: { id },
-        data,
-        include: {
-          clientes: true,
-          detalle_pedidos: {
-            include: {
-              productos: true,
-            },
-          },
-        },
-      });
-    } catch (error) {
+    if (!pedido) {
       throw new NotFoundException(`Pedido con ID ${id} no encontrado`);
     }
+
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Restaurar stock de los productos antiguos
+      if (pedido.detalle_pedidos.length > 0) {
+        for (const item of pedido.detalle_pedidos) {
+          await tx.productos.update({
+            where: { id: item.producto_id },
+            data: { stock: { increment: item.cantidad } },
+          });
+        }
+      }
+
+      // 2. Actualizar campos principales
+      const { detalle, ...data } = updatePedidoDto;
+      const updatedPedido = await tx.pedidos.update({
+        where: { id },
+        data,
+      });
+
+      // 3. Verificar y actualizar nuevo detalle
+      if (detalle) {
+        // Verificar productos y stock
+        for (const item of detalle) {
+          const producto = await tx.productos.findUnique({
+            where: { id: item.producto_id },
+          });
+
+          if (!producto) {
+            throw new BadRequestException(
+              `Producto con ID ${item.producto_id} no encontrado`,
+            );
+          }
+
+          if (producto.stock < item.cantidad) {
+            throw new BadRequestException(
+              `Stock insuficiente para el producto ${producto.descripcion}`,
+            );
+          }
+        }
+
+        // Eliminar detalles antiguos
+        await tx.detalle_pedidos.deleteMany({ where: { pedido_id: id } });
+
+        // Crear nuevos detalles y actualizar stock
+        for (const item of detalle) {
+          await tx.detalle_pedidos.create({
+            data: {
+              pedido_id: id,
+              producto_id: item.producto_id,
+              cantidad: item.cantidad,
+              precio_unitario: item.precio_unitario,
+              subtotal: item.subtotal,
+            },
+          });
+
+          await tx.productos.update({
+            where: { id: item.producto_id },
+            data: { stock: { decrement: item.cantidad } },
+          });
+        }
+      }
+
+      return tx.pedidos.findUnique({
+        where: { id },
+        include: {
+          detalle_pedidos: { include: { productos: true } },
+          clientes: true,
+        },
+      });
+    });
   }
 
   async remove(id: number) {

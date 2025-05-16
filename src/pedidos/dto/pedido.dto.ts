@@ -26,13 +26,11 @@ export const CreatePedidoSchema = z.object({
 export type CreatePedidoDto = z.infer<typeof CreatePedidoSchema>;
 
 export const UpdatePedidoSchema = z.object({
-  fecha: z.string().or(z.date()).optional(),
-  cliente_id: z.number().int().positive().optional(),
-  subtotal: z.number().nonnegative().optional(),
-  igv: z.number().nonnegative().optional(),
-  total: z.number().nonnegative().optional(),
-  estado: z.enum(['PENDIENTE', 'PAGADO', 'DESPACHADO', 'ANULADO']).optional(),
+  subtotal: z.number().nonnegative(),
+  igv: z.number().nonnegative(),
+  total: z.number().nonnegative(),
   notas: z.string().optional(),
+  detalle: z.array(DetallePedidoSchema),
 });
 
 export type UpdatePedidoDto = z.infer<typeof UpdatePedidoSchema>;

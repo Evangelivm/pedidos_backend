@@ -1,7 +1,7 @@
 services:
   db:
     image: mysql:8.0-debian
-    container_name: db_ugel_05
+    container_name: sistema_pedidos_back
     ports:
       - '3306:3306'
     environment:

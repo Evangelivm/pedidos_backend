@@ -19,6 +19,8 @@ import {
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
 import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { number } from 'zod';
+import { ParseIntPipe } from '@nestjs/common';
 
 @ApiTags('pedidos')
 @Controller('pedidos')
@@ -26,13 +28,15 @@ export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(CreatePedidoSchema))
   @ApiOperation({ summary: 'Create a new order' })
   @ApiResponse({
     status: 201,
     description: 'The order has been successfully created.',
   })
-  create(@Body() createPedidoDto: CreatePedidoDto) {
+  create(
+    @Body(new ZodValidationPipe(CreatePedidoSchema))
+    createPedidoDto: CreatePedidoDto,
+  ) {
     return this.pedidosService.create(createPedidoDto);
   }
 
@@ -67,8 +71,8 @@ export class PedidosController {
   @ApiOperation({ summary: 'Get an order by id' })
   @ApiResponse({ status: 200, description: 'Return the order.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
-  findOne(@Param('id') id: string) {
-    return this.pedidosService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.pedidosService.findOne(id);
   }
 
   @Put(':id')
@@ -78,11 +82,13 @@ export class PedidosController {
     description: 'The order has been successfully updated.',
   })
   @ApiResponse({ status: 404, description: 'Order not found.' })
-  @UsePipes(new ZodValidationPipe(UpdatePedidoSchema))
-  update(@Param('id') id: string, @Body() updatePedidoDto: UpdatePedidoDto) {
-    return this.pedidosService.update(+id, updatePedidoDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(UpdatePedidoSchema))
+    updatePedidoDto: UpdatePedidoDto,
+  ) {
+    return this.pedidosService.update(id, updatePedidoDto);
   }
-
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an order' })
   @ApiResponse({
@@ -90,7 +96,7 @@ export class PedidosController {
     description: 'The order has been successfully deleted.',
   })
   @ApiResponse({ status: 404, description: 'Order not found.' })
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.pedidosService.remove(+id);
   }
 }
