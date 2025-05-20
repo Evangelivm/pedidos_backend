@@ -92,7 +92,8 @@ export namespace $Enums {
   DNI: 'DNI',
   RUC: 'RUC',
   CE: 'CE',
-  PASAPORTE: 'PASAPORTE'
+  PASAPORTE: 'PASAPORTE',
+  SD: 'SD'
 };
 
 export type clientes_tipo_documento = (typeof clientes_tipo_documento)[keyof typeof clientes_tipo_documento]
@@ -17513,12 +17514,12 @@ export namespace Prisma {
 
   export type clientesWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    numero_documento?: string
     AND?: clientesWhereInput | clientesWhereInput[]
     OR?: clientesWhereInput[]
     NOT?: clientesWhereInput | clientesWhereInput[]
     nombre?: StringFilter<"clientes"> | string
     tipo_documento?: Enumclientes_tipo_documentoFilter<"clientes"> | $Enums.clientes_tipo_documento
+    numero_documento?: StringNullableFilter<"clientes"> | string | null
     direccion?: StringNullableFilter<"clientes"> | string | null
     telefono?: StringNullableFilter<"clientes"> | string | null
     email?: StringNullableFilter<"clientes"> | string | null
@@ -17527,7 +17528,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"clientes"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"clientes"> | Date | string | null
     pedidos?: PedidosListRelationFilter
-  }, "id" | "numero_documento">
+  }, "id">
 
   export type clientesOrderByWithAggregationInput = {
     id?: SortOrder

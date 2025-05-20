@@ -36,7 +36,7 @@ model clientes {
   id               Int                     @id @default(autoincrement())
   nombre           String                  @db.VarChar(100)
   tipo_documento   clientes_tipo_documento @default(DNI)
-  numero_documento String?                 @unique(map: "numero_documento_UNIQUE") @db.VarChar(20)
+  numero_documento String?                 @db.VarChar(20)
   direccion        String?                 @db.VarChar(255)
   telefono         String?                 @db.VarChar(20)
   email            String?                 @db.VarChar(100)
@@ -226,6 +226,7 @@ enum clientes_tipo_documento {
   RUC
   CE
   PASAPORTE
+  SD
 }
 
 enum movimientos_caja_tipo {

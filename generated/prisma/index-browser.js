@@ -382,7 +382,8 @@ exports.clientes_tipo_documento = exports.$Enums.clientes_tipo_documento = {
   DNI: 'DNI',
   RUC: 'RUC',
   CE: 'CE',
-  PASAPORTE: 'PASAPORTE'
+  PASAPORTE: 'PASAPORTE',
+  SD: 'SD'
 };
 
 exports.despachos_estado = exports.$Enums.despachos_estado = {
