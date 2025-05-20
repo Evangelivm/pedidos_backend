@@ -9,9 +9,14 @@ services:
       MYSQL_DATABASE: sistema_pedidos
       MYSQL_USER: nestuser
       MYSQL_PASSWORD: pedidospassword
+    volumes:
+      - mysql_data:/var/lib/mysql # Volumen para persistir datos
     networks:
       - shared_network
 
 networks:
   shared_network:
     external: true
+
+volumes:
+  mysql_data: # Define el volumen (Docker lo gestiona automáticamente)
