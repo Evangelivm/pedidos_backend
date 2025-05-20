@@ -19,19 +19,20 @@ import {
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
 import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ParseIntPipe } from '@nestjs/common';
 
 @ApiTags('clientes')
 @Controller('clientes')
 export class ClientesController {
   constructor(private readonly clientesService: ClientesService) {}
 
-  @Post()
   @ApiOperation({ summary: 'Create a new client' })
   @ApiResponse({
     status: 201,
     description: 'The client has been successfully created.',
   })
   @UsePipes(new ZodValidationPipe(CreateClienteSchema))
+  @Post()
   create(@Body() createClienteDto: CreateClienteDto) {
     return this.clientesService.create(createClienteDto);
   }
@@ -67,9 +68,12 @@ export class ClientesController {
     description: 'The client has been successfully updated.',
   })
   @ApiResponse({ status: 404, description: 'Client not found.' })
-  @UsePipes(new ZodValidationPipe(UpdateClienteSchema))
-  update(@Param('id') id: string, @Body() updateClienteDto: UpdateClienteDto) {
-    return this.clientesService.update(+id, updateClienteDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(UpdateClienteSchema))
+    updateClienteDto: UpdateClienteDto,
+  ) {
+    return this.clientesService.update(id, updateClienteDto);
   }
 
   @Delete(':id')
@@ -79,7 +83,7 @@ export class ClientesController {
     description: 'The client has been successfully deleted.',
   })
   @ApiResponse({ status: 404, description: 'Client not found.' })
-  remove(@Param('id') id: string) {
-    return this.clientesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.clientesService.remove(id);
   }
 }
