@@ -245,6 +245,7 @@ exports.Prisma.PedidosScalarFieldEnum = {
   numero: 'numero',
   fecha: 'fecha',
   cliente_id: 'cliente_id',
+  vendedor_id: 'vendedor_id',
   subtotal: 'subtotal',
   igv: 'igv',
   total: 'total',
@@ -286,6 +287,19 @@ exports.Prisma.ProveedoresScalarFieldEnum = {
   telefono: 'telefono',
   email: 'email',
   contacto: 'contacto',
+  notas: 'notas',
+  activo: 'activo',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.VendedoresScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  numero_ruc: 'numero_ruc',
+  direccion: 'direccion',
+  telefono: 'telefono',
+  email: 'email',
   notas: 'notas',
   activo: 'activo',
   created_at: 'created_at',
@@ -373,6 +387,15 @@ exports.Prisma.proveedoresOrderByRelevanceFieldEnum = {
   contacto: 'contacto',
   notas: 'notas'
 };
+
+exports.Prisma.vendedoresOrderByRelevanceFieldEnum = {
+  nombre: 'nombre',
+  numero_ruc: 'numero_ruc',
+  direccion: 'direccion',
+  telefono: 'telefono',
+  email: 'email',
+  notas: 'notas'
+};
 exports.caja_diaria_estado = exports.$Enums.caja_diaria_estado = {
   ABIERTA: 'ABIERTA',
   CERRADA: 'CERRADA'
@@ -439,7 +462,8 @@ exports.Prisma.ModelName = {
   pedidos: 'pedidos',
   presentaciones: 'presentaciones',
   productos: 'productos',
-  proveedores: 'proveedores'
+  proveedores: 'proveedores',
+  vendedores: 'vendedores'
 };
 
 /**

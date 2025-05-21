@@ -83,6 +83,11 @@ export type productos = $Result.DefaultSelection<Prisma.$productosPayload>
  * 
  */
 export type proveedores = $Result.DefaultSelection<Prisma.$proveedoresPayload>
+/**
+ * Model vendedores
+ * 
+ */
+export type vendedores = $Result.DefaultSelection<Prisma.$vendedoresPayload>
 
 /**
  * Enums
@@ -461,6 +466,16 @@ export class PrismaClient<
     * ```
     */
   get proveedores(): Prisma.proveedoresDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vendedores`: Exposes CRUD operations for the **vendedores** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Vendedores
+    * const vendedores = await prisma.vendedores.findMany()
+    * ```
+    */
+  get vendedores(): Prisma.vendedoresDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -914,7 +929,8 @@ export namespace Prisma {
     pedidos: 'pedidos',
     presentaciones: 'presentaciones',
     productos: 'productos',
-    proveedores: 'proveedores'
+    proveedores: 'proveedores',
+    vendedores: 'vendedores'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -933,7 +949,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "caja_diaria" | "categorias" | "clientes" | "despachos" | "detalle_entradas_mercaderia" | "detalle_pedidos" | "entradas_mercaderia" | "gastos" | "movimientos_caja" | "pagos" | "pedidos" | "presentaciones" | "productos" | "proveedores"
+      modelProps: "caja_diaria" | "categorias" | "clientes" | "despachos" | "detalle_entradas_mercaderia" | "detalle_pedidos" | "entradas_mercaderia" | "gastos" | "movimientos_caja" | "pagos" | "pedidos" | "presentaciones" | "productos" | "proveedores" | "vendedores"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1861,6 +1877,72 @@ export namespace Prisma {
           }
         }
       }
+      vendedores: {
+        payload: Prisma.$vendedoresPayload<ExtArgs>
+        fields: Prisma.vendedoresFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.vendedoresFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.vendedoresFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          findFirst: {
+            args: Prisma.vendedoresFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.vendedoresFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          findMany: {
+            args: Prisma.vendedoresFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>[]
+          }
+          create: {
+            args: Prisma.vendedoresCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          createMany: {
+            args: Prisma.vendedoresCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.vendedoresDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          update: {
+            args: Prisma.vendedoresUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          deleteMany: {
+            args: Prisma.vendedoresDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.vendedoresUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.vendedoresUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vendedoresPayload>
+          }
+          aggregate: {
+            args: Prisma.VendedoresAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVendedores>
+          }
+          groupBy: {
+            args: Prisma.vendedoresGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VendedoresGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.vendedoresCountArgs<ExtArgs>
+            result: $Utils.Optional<VendedoresCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1959,6 +2041,7 @@ export namespace Prisma {
     presentaciones?: presentacionesOmit
     productos?: productosOmit
     proveedores?: proveedoresOmit
+    vendedores?: vendedoresOmit
   }
 
   /* Types for Logging */
@@ -2320,6 +2403,37 @@ export namespace Prisma {
    */
   export type ProveedoresCountOutputTypeCountEntradas_mercaderiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: entradas_mercaderiaWhereInput
+  }
+
+
+  /**
+   * Count Type VendedoresCountOutputType
+   */
+
+  export type VendedoresCountOutputType = {
+    pedidos: number
+  }
+
+  export type VendedoresCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pedidos?: boolean | VendedoresCountOutputTypeCountPedidosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VendedoresCountOutputType without action
+   */
+  export type VendedoresCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VendedoresCountOutputType
+     */
+    select?: VendedoresCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VendedoresCountOutputType without action
+   */
+  export type VendedoresCountOutputTypeCountPedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pedidosWhereInput
   }
 
 
@@ -12577,6 +12691,7 @@ export namespace Prisma {
   export type PedidosAvgAggregateOutputType = {
     id: number | null
     cliente_id: number | null
+    vendedor_id: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
@@ -12585,6 +12700,7 @@ export namespace Prisma {
   export type PedidosSumAggregateOutputType = {
     id: number | null
     cliente_id: number | null
+    vendedor_id: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
@@ -12595,6 +12711,7 @@ export namespace Prisma {
     numero: string | null
     fecha: Date | null
     cliente_id: number | null
+    vendedor_id: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
@@ -12609,6 +12726,7 @@ export namespace Prisma {
     numero: string | null
     fecha: Date | null
     cliente_id: number | null
+    vendedor_id: number | null
     subtotal: Decimal | null
     igv: Decimal | null
     total: Decimal | null
@@ -12623,6 +12741,7 @@ export namespace Prisma {
     numero: number
     fecha: number
     cliente_id: number
+    vendedor_id: number
     subtotal: number
     igv: number
     total: number
@@ -12637,6 +12756,7 @@ export namespace Prisma {
   export type PedidosAvgAggregateInputType = {
     id?: true
     cliente_id?: true
+    vendedor_id?: true
     subtotal?: true
     igv?: true
     total?: true
@@ -12645,6 +12765,7 @@ export namespace Prisma {
   export type PedidosSumAggregateInputType = {
     id?: true
     cliente_id?: true
+    vendedor_id?: true
     subtotal?: true
     igv?: true
     total?: true
@@ -12655,6 +12776,7 @@ export namespace Prisma {
     numero?: true
     fecha?: true
     cliente_id?: true
+    vendedor_id?: true
     subtotal?: true
     igv?: true
     total?: true
@@ -12669,6 +12791,7 @@ export namespace Prisma {
     numero?: true
     fecha?: true
     cliente_id?: true
+    vendedor_id?: true
     subtotal?: true
     igv?: true
     total?: true
@@ -12683,6 +12806,7 @@ export namespace Prisma {
     numero?: true
     fecha?: true
     cliente_id?: true
+    vendedor_id?: true
     subtotal?: true
     igv?: true
     total?: true
@@ -12784,6 +12908,7 @@ export namespace Prisma {
     numero: string
     fecha: Date
     cliente_id: number
+    vendedor_id: number
     subtotal: Decimal
     igv: Decimal
     total: Decimal
@@ -12817,6 +12942,7 @@ export namespace Prisma {
     numero?: boolean
     fecha?: boolean
     cliente_id?: boolean
+    vendedor_id?: boolean
     subtotal?: boolean
     igv?: boolean
     total?: boolean
@@ -12828,6 +12954,7 @@ export namespace Prisma {
     detalle_pedidos?: boolean | pedidos$detalle_pedidosArgs<ExtArgs>
     pagos?: boolean | pedidos$pagosArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    vendedores?: boolean | vendedoresDefaultArgs<ExtArgs>
     _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pedidos"]>
 
@@ -12838,6 +12965,7 @@ export namespace Prisma {
     numero?: boolean
     fecha?: boolean
     cliente_id?: boolean
+    vendedor_id?: boolean
     subtotal?: boolean
     igv?: boolean
     total?: boolean
@@ -12847,12 +12975,13 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type pedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "fecha" | "cliente_id" | "subtotal" | "igv" | "total" | "estado" | "notas" | "created_at" | "updated_at", ExtArgs["result"]["pedidos"]>
+  export type pedidosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "fecha" | "cliente_id" | "vendedor_id" | "subtotal" | "igv" | "total" | "estado" | "notas" | "created_at" | "updated_at", ExtArgs["result"]["pedidos"]>
   export type pedidosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     despachos?: boolean | pedidos$despachosArgs<ExtArgs>
     detalle_pedidos?: boolean | pedidos$detalle_pedidosArgs<ExtArgs>
     pagos?: boolean | pedidos$pagosArgs<ExtArgs>
     clientes?: boolean | clientesDefaultArgs<ExtArgs>
+    vendedores?: boolean | vendedoresDefaultArgs<ExtArgs>
     _count?: boolean | PedidosCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -12863,12 +12992,14 @@ export namespace Prisma {
       detalle_pedidos: Prisma.$detalle_pedidosPayload<ExtArgs>[]
       pagos: Prisma.$pagosPayload<ExtArgs>[]
       clientes: Prisma.$clientesPayload<ExtArgs>
+      vendedores: Prisma.$vendedoresPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       numero: string
       fecha: Date
       cliente_id: number
+      vendedor_id: number
       subtotal: Prisma.Decimal
       igv: Prisma.Decimal
       total: Prisma.Decimal
@@ -13220,6 +13351,7 @@ export namespace Prisma {
     detalle_pedidos<T extends pedidos$detalle_pedidosArgs<ExtArgs> = {}>(args?: Subset<T, pedidos$detalle_pedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalle_pedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pagos<T extends pedidos$pagosArgs<ExtArgs> = {}>(args?: Subset<T, pedidos$pagosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pagosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clientes<T extends clientesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clientesDefaultArgs<ExtArgs>>): Prisma__clientesClient<$Result.GetResult<Prisma.$clientesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    vendedores<T extends vendedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, vendedoresDefaultArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13253,6 +13385,7 @@ export namespace Prisma {
     readonly numero: FieldRef<"pedidos", 'String'>
     readonly fecha: FieldRef<"pedidos", 'DateTime'>
     readonly cliente_id: FieldRef<"pedidos", 'Int'>
+    readonly vendedor_id: FieldRef<"pedidos", 'Int'>
     readonly subtotal: FieldRef<"pedidos", 'Decimal'>
     readonly igv: FieldRef<"pedidos", 'Decimal'>
     readonly total: FieldRef<"pedidos", 'Decimal'>
@@ -16875,6 +17008,1050 @@ export namespace Prisma {
 
 
   /**
+   * Model vendedores
+   */
+
+  export type AggregateVendedores = {
+    _count: VendedoresCountAggregateOutputType | null
+    _avg: VendedoresAvgAggregateOutputType | null
+    _sum: VendedoresSumAggregateOutputType | null
+    _min: VendedoresMinAggregateOutputType | null
+    _max: VendedoresMaxAggregateOutputType | null
+  }
+
+  export type VendedoresAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type VendedoresSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type VendedoresMinAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    numero_ruc: string | null
+    direccion: string | null
+    telefono: string | null
+    email: string | null
+    notas: string | null
+    activo: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type VendedoresMaxAggregateOutputType = {
+    id: number | null
+    nombre: string | null
+    numero_ruc: string | null
+    direccion: string | null
+    telefono: string | null
+    email: string | null
+    notas: string | null
+    activo: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type VendedoresCountAggregateOutputType = {
+    id: number
+    nombre: number
+    numero_ruc: number
+    direccion: number
+    telefono: number
+    email: number
+    notas: number
+    activo: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type VendedoresAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type VendedoresSumAggregateInputType = {
+    id?: true
+  }
+
+  export type VendedoresMinAggregateInputType = {
+    id?: true
+    nombre?: true
+    numero_ruc?: true
+    direccion?: true
+    telefono?: true
+    email?: true
+    notas?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type VendedoresMaxAggregateInputType = {
+    id?: true
+    nombre?: true
+    numero_ruc?: true
+    direccion?: true
+    telefono?: true
+    email?: true
+    notas?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type VendedoresCountAggregateInputType = {
+    id?: true
+    nombre?: true
+    numero_ruc?: true
+    direccion?: true
+    telefono?: true
+    email?: true
+    notas?: true
+    activo?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type VendedoresAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vendedores to aggregate.
+     */
+    where?: vendedoresWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vendedores to fetch.
+     */
+    orderBy?: vendedoresOrderByWithRelationInput | vendedoresOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: vendedoresWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vendedores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vendedores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned vendedores
+    **/
+    _count?: true | VendedoresCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VendedoresAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VendedoresSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VendedoresMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VendedoresMaxAggregateInputType
+  }
+
+  export type GetVendedoresAggregateType<T extends VendedoresAggregateArgs> = {
+        [P in keyof T & keyof AggregateVendedores]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVendedores[P]>
+      : GetScalarType<T[P], AggregateVendedores[P]>
+  }
+
+
+
+
+  export type vendedoresGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: vendedoresWhereInput
+    orderBy?: vendedoresOrderByWithAggregationInput | vendedoresOrderByWithAggregationInput[]
+    by: VendedoresScalarFieldEnum[] | VendedoresScalarFieldEnum
+    having?: vendedoresScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VendedoresCountAggregateInputType | true
+    _avg?: VendedoresAvgAggregateInputType
+    _sum?: VendedoresSumAggregateInputType
+    _min?: VendedoresMinAggregateInputType
+    _max?: VendedoresMaxAggregateInputType
+  }
+
+  export type VendedoresGroupByOutputType = {
+    id: number
+    nombre: string
+    numero_ruc: string | null
+    direccion: string | null
+    telefono: string | null
+    email: string | null
+    notas: string | null
+    activo: boolean
+    created_at: Date | null
+    updated_at: Date | null
+    _count: VendedoresCountAggregateOutputType | null
+    _avg: VendedoresAvgAggregateOutputType | null
+    _sum: VendedoresSumAggregateOutputType | null
+    _min: VendedoresMinAggregateOutputType | null
+    _max: VendedoresMaxAggregateOutputType | null
+  }
+
+  type GetVendedoresGroupByPayload<T extends vendedoresGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VendedoresGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VendedoresGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VendedoresGroupByOutputType[P]>
+            : GetScalarType<T[P], VendedoresGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type vendedoresSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nombre?: boolean
+    numero_ruc?: boolean
+    direccion?: boolean
+    telefono?: boolean
+    email?: boolean
+    notas?: boolean
+    activo?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    pedidos?: boolean | vendedores$pedidosArgs<ExtArgs>
+    _count?: boolean | VendedoresCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vendedores"]>
+
+
+
+  export type vendedoresSelectScalar = {
+    id?: boolean
+    nombre?: boolean
+    numero_ruc?: boolean
+    direccion?: boolean
+    telefono?: boolean
+    email?: boolean
+    notas?: boolean
+    activo?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type vendedoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "numero_ruc" | "direccion" | "telefono" | "email" | "notas" | "activo" | "created_at" | "updated_at", ExtArgs["result"]["vendedores"]>
+  export type vendedoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pedidos?: boolean | vendedores$pedidosArgs<ExtArgs>
+    _count?: boolean | VendedoresCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $vendedoresPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "vendedores"
+    objects: {
+      pedidos: Prisma.$pedidosPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nombre: string
+      numero_ruc: string | null
+      direccion: string | null
+      telefono: string | null
+      email: string | null
+      notas: string | null
+      activo: boolean
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["vendedores"]>
+    composites: {}
+  }
+
+  type vendedoresGetPayload<S extends boolean | null | undefined | vendedoresDefaultArgs> = $Result.GetResult<Prisma.$vendedoresPayload, S>
+
+  type vendedoresCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<vendedoresFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VendedoresCountAggregateInputType | true
+    }
+
+  export interface vendedoresDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['vendedores'], meta: { name: 'vendedores' } }
+    /**
+     * Find zero or one Vendedores that matches the filter.
+     * @param {vendedoresFindUniqueArgs} args - Arguments to find a Vendedores
+     * @example
+     * // Get one Vendedores
+     * const vendedores = await prisma.vendedores.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends vendedoresFindUniqueArgs>(args: SelectSubset<T, vendedoresFindUniqueArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Vendedores that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {vendedoresFindUniqueOrThrowArgs} args - Arguments to find a Vendedores
+     * @example
+     * // Get one Vendedores
+     * const vendedores = await prisma.vendedores.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends vendedoresFindUniqueOrThrowArgs>(args: SelectSubset<T, vendedoresFindUniqueOrThrowArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vendedores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresFindFirstArgs} args - Arguments to find a Vendedores
+     * @example
+     * // Get one Vendedores
+     * const vendedores = await prisma.vendedores.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends vendedoresFindFirstArgs>(args?: SelectSubset<T, vendedoresFindFirstArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vendedores that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresFindFirstOrThrowArgs} args - Arguments to find a Vendedores
+     * @example
+     * // Get one Vendedores
+     * const vendedores = await prisma.vendedores.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends vendedoresFindFirstOrThrowArgs>(args?: SelectSubset<T, vendedoresFindFirstOrThrowArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Vendedores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Vendedores
+     * const vendedores = await prisma.vendedores.findMany()
+     * 
+     * // Get first 10 Vendedores
+     * const vendedores = await prisma.vendedores.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vendedoresWithIdOnly = await prisma.vendedores.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends vendedoresFindManyArgs>(args?: SelectSubset<T, vendedoresFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Vendedores.
+     * @param {vendedoresCreateArgs} args - Arguments to create a Vendedores.
+     * @example
+     * // Create one Vendedores
+     * const Vendedores = await prisma.vendedores.create({
+     *   data: {
+     *     // ... data to create a Vendedores
+     *   }
+     * })
+     * 
+     */
+    create<T extends vendedoresCreateArgs>(args: SelectSubset<T, vendedoresCreateArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Vendedores.
+     * @param {vendedoresCreateManyArgs} args - Arguments to create many Vendedores.
+     * @example
+     * // Create many Vendedores
+     * const vendedores = await prisma.vendedores.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends vendedoresCreateManyArgs>(args?: SelectSubset<T, vendedoresCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Vendedores.
+     * @param {vendedoresDeleteArgs} args - Arguments to delete one Vendedores.
+     * @example
+     * // Delete one Vendedores
+     * const Vendedores = await prisma.vendedores.delete({
+     *   where: {
+     *     // ... filter to delete one Vendedores
+     *   }
+     * })
+     * 
+     */
+    delete<T extends vendedoresDeleteArgs>(args: SelectSubset<T, vendedoresDeleteArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Vendedores.
+     * @param {vendedoresUpdateArgs} args - Arguments to update one Vendedores.
+     * @example
+     * // Update one Vendedores
+     * const vendedores = await prisma.vendedores.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends vendedoresUpdateArgs>(args: SelectSubset<T, vendedoresUpdateArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Vendedores.
+     * @param {vendedoresDeleteManyArgs} args - Arguments to filter Vendedores to delete.
+     * @example
+     * // Delete a few Vendedores
+     * const { count } = await prisma.vendedores.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends vendedoresDeleteManyArgs>(args?: SelectSubset<T, vendedoresDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Vendedores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Vendedores
+     * const vendedores = await prisma.vendedores.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends vendedoresUpdateManyArgs>(args: SelectSubset<T, vendedoresUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Vendedores.
+     * @param {vendedoresUpsertArgs} args - Arguments to update or create a Vendedores.
+     * @example
+     * // Update or create a Vendedores
+     * const vendedores = await prisma.vendedores.upsert({
+     *   create: {
+     *     // ... data to create a Vendedores
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Vendedores we want to update
+     *   }
+     * })
+     */
+    upsert<T extends vendedoresUpsertArgs>(args: SelectSubset<T, vendedoresUpsertArgs<ExtArgs>>): Prisma__vendedoresClient<$Result.GetResult<Prisma.$vendedoresPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Vendedores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresCountArgs} args - Arguments to filter Vendedores to count.
+     * @example
+     * // Count the number of Vendedores
+     * const count = await prisma.vendedores.count({
+     *   where: {
+     *     // ... the filter for the Vendedores we want to count
+     *   }
+     * })
+    **/
+    count<T extends vendedoresCountArgs>(
+      args?: Subset<T, vendedoresCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VendedoresCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Vendedores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VendedoresAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VendedoresAggregateArgs>(args: Subset<T, VendedoresAggregateArgs>): Prisma.PrismaPromise<GetVendedoresAggregateType<T>>
+
+    /**
+     * Group by Vendedores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vendedoresGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends vendedoresGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: vendedoresGroupByArgs['orderBy'] }
+        : { orderBy?: vendedoresGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, vendedoresGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVendedoresGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the vendedores model
+   */
+  readonly fields: vendedoresFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for vendedores.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__vendedoresClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pedidos<T extends vendedores$pedidosArgs<ExtArgs> = {}>(args?: Subset<T, vendedores$pedidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pedidosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the vendedores model
+   */
+  interface vendedoresFieldRefs {
+    readonly id: FieldRef<"vendedores", 'Int'>
+    readonly nombre: FieldRef<"vendedores", 'String'>
+    readonly numero_ruc: FieldRef<"vendedores", 'String'>
+    readonly direccion: FieldRef<"vendedores", 'String'>
+    readonly telefono: FieldRef<"vendedores", 'String'>
+    readonly email: FieldRef<"vendedores", 'String'>
+    readonly notas: FieldRef<"vendedores", 'String'>
+    readonly activo: FieldRef<"vendedores", 'Boolean'>
+    readonly created_at: FieldRef<"vendedores", 'DateTime'>
+    readonly updated_at: FieldRef<"vendedores", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * vendedores findUnique
+   */
+  export type vendedoresFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter, which vendedores to fetch.
+     */
+    where: vendedoresWhereUniqueInput
+  }
+
+  /**
+   * vendedores findUniqueOrThrow
+   */
+  export type vendedoresFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter, which vendedores to fetch.
+     */
+    where: vendedoresWhereUniqueInput
+  }
+
+  /**
+   * vendedores findFirst
+   */
+  export type vendedoresFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter, which vendedores to fetch.
+     */
+    where?: vendedoresWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vendedores to fetch.
+     */
+    orderBy?: vendedoresOrderByWithRelationInput | vendedoresOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vendedores.
+     */
+    cursor?: vendedoresWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vendedores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vendedores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vendedores.
+     */
+    distinct?: VendedoresScalarFieldEnum | VendedoresScalarFieldEnum[]
+  }
+
+  /**
+   * vendedores findFirstOrThrow
+   */
+  export type vendedoresFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter, which vendedores to fetch.
+     */
+    where?: vendedoresWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vendedores to fetch.
+     */
+    orderBy?: vendedoresOrderByWithRelationInput | vendedoresOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vendedores.
+     */
+    cursor?: vendedoresWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vendedores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vendedores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vendedores.
+     */
+    distinct?: VendedoresScalarFieldEnum | VendedoresScalarFieldEnum[]
+  }
+
+  /**
+   * vendedores findMany
+   */
+  export type vendedoresFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter, which vendedores to fetch.
+     */
+    where?: vendedoresWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vendedores to fetch.
+     */
+    orderBy?: vendedoresOrderByWithRelationInput | vendedoresOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing vendedores.
+     */
+    cursor?: vendedoresWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vendedores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vendedores.
+     */
+    skip?: number
+    distinct?: VendedoresScalarFieldEnum | VendedoresScalarFieldEnum[]
+  }
+
+  /**
+   * vendedores create
+   */
+  export type vendedoresCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * The data needed to create a vendedores.
+     */
+    data: XOR<vendedoresCreateInput, vendedoresUncheckedCreateInput>
+  }
+
+  /**
+   * vendedores createMany
+   */
+  export type vendedoresCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many vendedores.
+     */
+    data: vendedoresCreateManyInput | vendedoresCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * vendedores update
+   */
+  export type vendedoresUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * The data needed to update a vendedores.
+     */
+    data: XOR<vendedoresUpdateInput, vendedoresUncheckedUpdateInput>
+    /**
+     * Choose, which vendedores to update.
+     */
+    where: vendedoresWhereUniqueInput
+  }
+
+  /**
+   * vendedores updateMany
+   */
+  export type vendedoresUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update vendedores.
+     */
+    data: XOR<vendedoresUpdateManyMutationInput, vendedoresUncheckedUpdateManyInput>
+    /**
+     * Filter which vendedores to update
+     */
+    where?: vendedoresWhereInput
+    /**
+     * Limit how many vendedores to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * vendedores upsert
+   */
+  export type vendedoresUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * The filter to search for the vendedores to update in case it exists.
+     */
+    where: vendedoresWhereUniqueInput
+    /**
+     * In case the vendedores found by the `where` argument doesn't exist, create a new vendedores with this data.
+     */
+    create: XOR<vendedoresCreateInput, vendedoresUncheckedCreateInput>
+    /**
+     * In case the vendedores was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<vendedoresUpdateInput, vendedoresUncheckedUpdateInput>
+  }
+
+  /**
+   * vendedores delete
+   */
+  export type vendedoresDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+    /**
+     * Filter which vendedores to delete.
+     */
+    where: vendedoresWhereUniqueInput
+  }
+
+  /**
+   * vendedores deleteMany
+   */
+  export type vendedoresDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vendedores to delete
+     */
+    where?: vendedoresWhereInput
+    /**
+     * Limit how many vendedores to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * vendedores.pedidos
+   */
+  export type vendedores$pedidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the pedidos
+     */
+    select?: pedidosSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the pedidos
+     */
+    omit?: pedidosOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pedidosInclude<ExtArgs> | null
+    where?: pedidosWhereInput
+    orderBy?: pedidosOrderByWithRelationInput | pedidosOrderByWithRelationInput[]
+    cursor?: pedidosWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PedidosScalarFieldEnum | PedidosScalarFieldEnum[]
+  }
+
+  /**
+   * vendedores without action
+   */
+  export type vendedoresDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vendedores
+     */
+    select?: vendedoresSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vendedores
+     */
+    omit?: vendedoresOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vendedoresInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17043,6 +18220,7 @@ export namespace Prisma {
     numero: 'numero',
     fecha: 'fecha',
     cliente_id: 'cliente_id',
+    vendedor_id: 'vendedor_id',
     subtotal: 'subtotal',
     igv: 'igv',
     total: 'total',
@@ -17100,6 +18278,22 @@ export namespace Prisma {
   };
 
   export type ProveedoresScalarFieldEnum = (typeof ProveedoresScalarFieldEnum)[keyof typeof ProveedoresScalarFieldEnum]
+
+
+  export const VendedoresScalarFieldEnum: {
+    id: 'id',
+    nombre: 'nombre',
+    numero_ruc: 'numero_ruc',
+    direccion: 'direccion',
+    telefono: 'telefono',
+    email: 'email',
+    notas: 'notas',
+    activo: 'activo',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type VendedoresScalarFieldEnum = (typeof VendedoresScalarFieldEnum)[keyof typeof VendedoresScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17224,6 +18418,18 @@ export namespace Prisma {
   };
 
   export type proveedoresOrderByRelevanceFieldEnum = (typeof proveedoresOrderByRelevanceFieldEnum)[keyof typeof proveedoresOrderByRelevanceFieldEnum]
+
+
+  export const vendedoresOrderByRelevanceFieldEnum: {
+    nombre: 'nombre',
+    numero_ruc: 'numero_ruc',
+    direccion: 'direccion',
+    telefono: 'telefono',
+    email: 'email',
+    notas: 'notas'
+  };
+
+  export type vendedoresOrderByRelevanceFieldEnum = (typeof vendedoresOrderByRelevanceFieldEnum)[keyof typeof vendedoresOrderByRelevanceFieldEnum]
 
 
   /**
@@ -18124,6 +19330,7 @@ export namespace Prisma {
     numero?: StringFilter<"pedidos"> | string
     fecha?: DateTimeFilter<"pedidos"> | Date | string
     cliente_id?: IntFilter<"pedidos"> | number
+    vendedor_id?: IntFilter<"pedidos"> | number
     subtotal?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     igv?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
@@ -18135,6 +19342,7 @@ export namespace Prisma {
     detalle_pedidos?: Detalle_pedidosListRelationFilter
     pagos?: PagosListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    vendedores?: XOR<VendedoresScalarRelationFilter, vendedoresWhereInput>
   }
 
   export type pedidosOrderByWithRelationInput = {
@@ -18142,6 +19350,7 @@ export namespace Prisma {
     numero?: SortOrder
     fecha?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -18153,6 +19362,7 @@ export namespace Prisma {
     detalle_pedidos?: detalle_pedidosOrderByRelationAggregateInput
     pagos?: pagosOrderByRelationAggregateInput
     clientes?: clientesOrderByWithRelationInput
+    vendedores?: vendedoresOrderByWithRelationInput
     _relevance?: pedidosOrderByRelevanceInput
   }
 
@@ -18164,6 +19374,7 @@ export namespace Prisma {
     NOT?: pedidosWhereInput | pedidosWhereInput[]
     fecha?: DateTimeFilter<"pedidos"> | Date | string
     cliente_id?: IntFilter<"pedidos"> | number
+    vendedor_id?: IntFilter<"pedidos"> | number
     subtotal?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     igv?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
@@ -18175,6 +19386,7 @@ export namespace Prisma {
     detalle_pedidos?: Detalle_pedidosListRelationFilter
     pagos?: PagosListRelationFilter
     clientes?: XOR<ClientesScalarRelationFilter, clientesWhereInput>
+    vendedores?: XOR<VendedoresScalarRelationFilter, vendedoresWhereInput>
   }, "id" | "numero">
 
   export type pedidosOrderByWithAggregationInput = {
@@ -18182,6 +19394,7 @@ export namespace Prisma {
     numero?: SortOrder
     fecha?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -18204,6 +19417,7 @@ export namespace Prisma {
     numero?: StringWithAggregatesFilter<"pedidos"> | string
     fecha?: DateTimeWithAggregatesFilter<"pedidos"> | Date | string
     cliente_id?: IntWithAggregatesFilter<"pedidos"> | number
+    vendedor_id?: IntWithAggregatesFilter<"pedidos"> | number
     subtotal?: DecimalWithAggregatesFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     igv?: DecimalWithAggregatesFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     total?: DecimalWithAggregatesFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
@@ -18464,6 +19678,89 @@ export namespace Prisma {
     activo?: BoolWithAggregatesFilter<"proveedores"> | boolean
     created_at?: DateTimeNullableWithAggregatesFilter<"proveedores"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"proveedores"> | Date | string | null
+  }
+
+  export type vendedoresWhereInput = {
+    AND?: vendedoresWhereInput | vendedoresWhereInput[]
+    OR?: vendedoresWhereInput[]
+    NOT?: vendedoresWhereInput | vendedoresWhereInput[]
+    id?: IntFilter<"vendedores"> | number
+    nombre?: StringFilter<"vendedores"> | string
+    numero_ruc?: StringNullableFilter<"vendedores"> | string | null
+    direccion?: StringNullableFilter<"vendedores"> | string | null
+    telefono?: StringNullableFilter<"vendedores"> | string | null
+    email?: StringNullableFilter<"vendedores"> | string | null
+    notas?: StringNullableFilter<"vendedores"> | string | null
+    activo?: BoolFilter<"vendedores"> | boolean
+    created_at?: DateTimeNullableFilter<"vendedores"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"vendedores"> | Date | string | null
+    pedidos?: PedidosListRelationFilter
+  }
+
+  export type vendedoresOrderByWithRelationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    numero_ruc?: SortOrderInput | SortOrder
+    direccion?: SortOrderInput | SortOrder
+    telefono?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    notas?: SortOrderInput | SortOrder
+    activo?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    pedidos?: pedidosOrderByRelationAggregateInput
+    _relevance?: vendedoresOrderByRelevanceInput
+  }
+
+  export type vendedoresWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: vendedoresWhereInput | vendedoresWhereInput[]
+    OR?: vendedoresWhereInput[]
+    NOT?: vendedoresWhereInput | vendedoresWhereInput[]
+    nombre?: StringFilter<"vendedores"> | string
+    numero_ruc?: StringNullableFilter<"vendedores"> | string | null
+    direccion?: StringNullableFilter<"vendedores"> | string | null
+    telefono?: StringNullableFilter<"vendedores"> | string | null
+    email?: StringNullableFilter<"vendedores"> | string | null
+    notas?: StringNullableFilter<"vendedores"> | string | null
+    activo?: BoolFilter<"vendedores"> | boolean
+    created_at?: DateTimeNullableFilter<"vendedores"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"vendedores"> | Date | string | null
+    pedidos?: PedidosListRelationFilter
+  }, "id">
+
+  export type vendedoresOrderByWithAggregationInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    numero_ruc?: SortOrderInput | SortOrder
+    direccion?: SortOrderInput | SortOrder
+    telefono?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    notas?: SortOrderInput | SortOrder
+    activo?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: vendedoresCountOrderByAggregateInput
+    _avg?: vendedoresAvgOrderByAggregateInput
+    _max?: vendedoresMaxOrderByAggregateInput
+    _min?: vendedoresMinOrderByAggregateInput
+    _sum?: vendedoresSumOrderByAggregateInput
+  }
+
+  export type vendedoresScalarWhereWithAggregatesInput = {
+    AND?: vendedoresScalarWhereWithAggregatesInput | vendedoresScalarWhereWithAggregatesInput[]
+    OR?: vendedoresScalarWhereWithAggregatesInput[]
+    NOT?: vendedoresScalarWhereWithAggregatesInput | vendedoresScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"vendedores"> | number
+    nombre?: StringWithAggregatesFilter<"vendedores"> | string
+    numero_ruc?: StringNullableWithAggregatesFilter<"vendedores"> | string | null
+    direccion?: StringNullableWithAggregatesFilter<"vendedores"> | string | null
+    telefono?: StringNullableWithAggregatesFilter<"vendedores"> | string | null
+    email?: StringNullableWithAggregatesFilter<"vendedores"> | string | null
+    notas?: StringNullableWithAggregatesFilter<"vendedores"> | string | null
+    activo?: BoolWithAggregatesFilter<"vendedores"> | boolean
+    created_at?: DateTimeNullableWithAggregatesFilter<"vendedores"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"vendedores"> | Date | string | null
   }
 
   export type caja_diariaCreateInput = {
@@ -19298,6 +20595,7 @@ export namespace Prisma {
     detalle_pedidos?: detalle_pedidosCreateNestedManyWithoutPedidosInput
     pagos?: pagosCreateNestedManyWithoutPedidosInput
     clientes: clientesCreateNestedOneWithoutPedidosInput
+    vendedores: vendedoresCreateNestedOneWithoutPedidosInput
   }
 
   export type pedidosUncheckedCreateInput = {
@@ -19305,6 +20603,7 @@ export namespace Prisma {
     numero: string
     fecha: Date | string
     cliente_id: number
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -19331,6 +20630,7 @@ export namespace Prisma {
     detalle_pedidos?: detalle_pedidosUpdateManyWithoutPedidosNestedInput
     pagos?: pagosUpdateManyWithoutPedidosNestedInput
     clientes?: clientesUpdateOneRequiredWithoutPedidosNestedInput
+    vendedores?: vendedoresUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type pedidosUncheckedUpdateInput = {
@@ -19338,6 +20638,7 @@ export namespace Prisma {
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente_id?: IntFieldUpdateOperationsInput | number
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -19355,6 +20656,7 @@ export namespace Prisma {
     numero: string
     fecha: Date | string
     cliente_id: number
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -19381,6 +20683,7 @@ export namespace Prisma {
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente_id?: IntFieldUpdateOperationsInput | number
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -19655,6 +20958,98 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     contacto?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type vendedoresCreateInput = {
+    nombre: string
+    numero_ruc?: string | null
+    direccion?: string | null
+    telefono?: string | null
+    email?: string | null
+    notas?: string | null
+    activo?: boolean
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    pedidos?: pedidosCreateNestedManyWithoutVendedoresInput
+  }
+
+  export type vendedoresUncheckedCreateInput = {
+    id?: number
+    nombre: string
+    numero_ruc?: string | null
+    direccion?: string | null
+    telefono?: string | null
+    email?: string | null
+    notas?: string | null
+    activo?: boolean
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    pedidos?: pedidosUncheckedCreateNestedManyWithoutVendedoresInput
+  }
+
+  export type vendedoresUpdateInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pedidos?: pedidosUpdateManyWithoutVendedoresNestedInput
+  }
+
+  export type vendedoresUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pedidos?: pedidosUncheckedUpdateManyWithoutVendedoresNestedInput
+  }
+
+  export type vendedoresCreateManyInput = {
+    id?: number
+    nombre: string
+    numero_ruc?: string | null
+    direccion?: string | null
+    telefono?: string | null
+    email?: string | null
+    notas?: string | null
+    activo?: boolean
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type vendedoresUpdateManyMutationInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type vendedoresUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     activo?: BoolFieldUpdateOperationsInput | boolean
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20653,6 +22048,11 @@ export namespace Prisma {
     isNot?: clientesWhereInput
   }
 
+  export type VendedoresScalarRelationFilter = {
+    is?: vendedoresWhereInput
+    isNot?: vendedoresWhereInput
+  }
+
   export type despachosOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -20676,6 +22076,7 @@ export namespace Prisma {
     numero?: SortOrder
     fecha?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -20688,6 +22089,7 @@ export namespace Prisma {
   export type pedidosAvgOrderByAggregateInput = {
     id?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -20698,6 +22100,7 @@ export namespace Prisma {
     numero?: SortOrder
     fecha?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -20712,6 +22115,7 @@ export namespace Prisma {
     numero?: SortOrder
     fecha?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -20724,6 +22128,7 @@ export namespace Prisma {
   export type pedidosSumOrderByAggregateInput = {
     id?: SortOrder
     cliente_id?: SortOrder
+    vendedor_id?: SortOrder
     subtotal?: SortOrder
     igv?: SortOrder
     total?: SortOrder
@@ -20924,6 +22329,59 @@ export namespace Prisma {
   }
 
   export type proveedoresSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type vendedoresOrderByRelevanceInput = {
+    fields: vendedoresOrderByRelevanceFieldEnum | vendedoresOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type vendedoresCountOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    numero_ruc?: SortOrder
+    direccion?: SortOrder
+    telefono?: SortOrder
+    email?: SortOrder
+    notas?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type vendedoresAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type vendedoresMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    numero_ruc?: SortOrder
+    direccion?: SortOrder
+    telefono?: SortOrder
+    email?: SortOrder
+    notas?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type vendedoresMinOrderByAggregateInput = {
+    id?: SortOrder
+    nombre?: SortOrder
+    numero_ruc?: SortOrder
+    direccion?: SortOrder
+    telefono?: SortOrder
+    email?: SortOrder
+    notas?: SortOrder
+    activo?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type vendedoresSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
@@ -21314,6 +22772,12 @@ export namespace Prisma {
     connect?: clientesWhereUniqueInput
   }
 
+  export type vendedoresCreateNestedOneWithoutPedidosInput = {
+    create?: XOR<vendedoresCreateWithoutPedidosInput, vendedoresUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: vendedoresCreateOrConnectWithoutPedidosInput
+    connect?: vendedoresWhereUniqueInput
+  }
+
   export type despachosUncheckedCreateNestedManyWithoutPedidosInput = {
     create?: XOR<despachosCreateWithoutPedidosInput, despachosUncheckedCreateWithoutPedidosInput> | despachosCreateWithoutPedidosInput[] | despachosUncheckedCreateWithoutPedidosInput[]
     connectOrCreate?: despachosCreateOrConnectWithoutPedidosInput | despachosCreateOrConnectWithoutPedidosInput[]
@@ -21387,6 +22851,14 @@ export namespace Prisma {
     upsert?: clientesUpsertWithoutPedidosInput
     connect?: clientesWhereUniqueInput
     update?: XOR<XOR<clientesUpdateToOneWithWhereWithoutPedidosInput, clientesUpdateWithoutPedidosInput>, clientesUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type vendedoresUpdateOneRequiredWithoutPedidosNestedInput = {
+    create?: XOR<vendedoresCreateWithoutPedidosInput, vendedoresUncheckedCreateWithoutPedidosInput>
+    connectOrCreate?: vendedoresCreateOrConnectWithoutPedidosInput
+    upsert?: vendedoresUpsertWithoutPedidosInput
+    connect?: vendedoresWhereUniqueInput
+    update?: XOR<XOR<vendedoresUpdateToOneWithWhereWithoutPedidosInput, vendedoresUpdateWithoutPedidosInput>, vendedoresUncheckedUpdateWithoutPedidosInput>
   }
 
   export type despachosUncheckedUpdateManyWithoutPedidosNestedInput = {
@@ -21625,6 +23097,48 @@ export namespace Prisma {
     update?: entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput | entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput[]
     updateMany?: entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput | entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput[]
     deleteMany?: entradas_mercaderiaScalarWhereInput | entradas_mercaderiaScalarWhereInput[]
+  }
+
+  export type pedidosCreateNestedManyWithoutVendedoresInput = {
+    create?: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput> | pedidosCreateWithoutVendedoresInput[] | pedidosUncheckedCreateWithoutVendedoresInput[]
+    connectOrCreate?: pedidosCreateOrConnectWithoutVendedoresInput | pedidosCreateOrConnectWithoutVendedoresInput[]
+    createMany?: pedidosCreateManyVendedoresInputEnvelope
+    connect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+  }
+
+  export type pedidosUncheckedCreateNestedManyWithoutVendedoresInput = {
+    create?: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput> | pedidosCreateWithoutVendedoresInput[] | pedidosUncheckedCreateWithoutVendedoresInput[]
+    connectOrCreate?: pedidosCreateOrConnectWithoutVendedoresInput | pedidosCreateOrConnectWithoutVendedoresInput[]
+    createMany?: pedidosCreateManyVendedoresInputEnvelope
+    connect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+  }
+
+  export type pedidosUpdateManyWithoutVendedoresNestedInput = {
+    create?: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput> | pedidosCreateWithoutVendedoresInput[] | pedidosUncheckedCreateWithoutVendedoresInput[]
+    connectOrCreate?: pedidosCreateOrConnectWithoutVendedoresInput | pedidosCreateOrConnectWithoutVendedoresInput[]
+    upsert?: pedidosUpsertWithWhereUniqueWithoutVendedoresInput | pedidosUpsertWithWhereUniqueWithoutVendedoresInput[]
+    createMany?: pedidosCreateManyVendedoresInputEnvelope
+    set?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    disconnect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    delete?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    connect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    update?: pedidosUpdateWithWhereUniqueWithoutVendedoresInput | pedidosUpdateWithWhereUniqueWithoutVendedoresInput[]
+    updateMany?: pedidosUpdateManyWithWhereWithoutVendedoresInput | pedidosUpdateManyWithWhereWithoutVendedoresInput[]
+    deleteMany?: pedidosScalarWhereInput | pedidosScalarWhereInput[]
+  }
+
+  export type pedidosUncheckedUpdateManyWithoutVendedoresNestedInput = {
+    create?: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput> | pedidosCreateWithoutVendedoresInput[] | pedidosUncheckedCreateWithoutVendedoresInput[]
+    connectOrCreate?: pedidosCreateOrConnectWithoutVendedoresInput | pedidosCreateOrConnectWithoutVendedoresInput[]
+    upsert?: pedidosUpsertWithWhereUniqueWithoutVendedoresInput | pedidosUpsertWithWhereUniqueWithoutVendedoresInput[]
+    createMany?: pedidosCreateManyVendedoresInputEnvelope
+    set?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    disconnect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    delete?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    connect?: pedidosWhereUniqueInput | pedidosWhereUniqueInput[]
+    update?: pedidosUpdateWithWhereUniqueWithoutVendedoresInput | pedidosUpdateWithWhereUniqueWithoutVendedoresInput[]
+    updateMany?: pedidosUpdateManyWithWhereWithoutVendedoresInput | pedidosUpdateManyWithWhereWithoutVendedoresInput[]
+    deleteMany?: pedidosScalarWhereInput | pedidosScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -22178,12 +23692,14 @@ export namespace Prisma {
     despachos?: despachosCreateNestedManyWithoutPedidosInput
     detalle_pedidos?: detalle_pedidosCreateNestedManyWithoutPedidosInput
     pagos?: pagosCreateNestedManyWithoutPedidosInput
+    vendedores: vendedoresCreateNestedOneWithoutPedidosInput
   }
 
   export type pedidosUncheckedCreateWithoutClientesInput = {
     id?: number
     numero: string
     fecha: Date | string
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -22230,6 +23746,7 @@ export namespace Prisma {
     numero?: StringFilter<"pedidos"> | string
     fecha?: DateTimeFilter<"pedidos"> | Date | string
     cliente_id?: IntFilter<"pedidos"> | number
+    vendedor_id?: IntFilter<"pedidos"> | number
     subtotal?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     igv?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
     total?: DecimalFilter<"pedidos"> | Decimal | DecimalJsLike | number | string
@@ -22252,6 +23769,7 @@ export namespace Prisma {
     detalle_pedidos?: detalle_pedidosCreateNestedManyWithoutPedidosInput
     pagos?: pagosCreateNestedManyWithoutPedidosInput
     clientes: clientesCreateNestedOneWithoutPedidosInput
+    vendedores: vendedoresCreateNestedOneWithoutPedidosInput
   }
 
   export type pedidosUncheckedCreateWithoutDespachosInput = {
@@ -22259,6 +23777,7 @@ export namespace Prisma {
     numero: string
     fecha: Date | string
     cliente_id: number
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -22299,6 +23818,7 @@ export namespace Prisma {
     detalle_pedidos?: detalle_pedidosUpdateManyWithoutPedidosNestedInput
     pagos?: pagosUpdateManyWithoutPedidosNestedInput
     clientes?: clientesUpdateOneRequiredWithoutPedidosNestedInput
+    vendedores?: vendedoresUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type pedidosUncheckedUpdateWithoutDespachosInput = {
@@ -22306,6 +23826,7 @@ export namespace Prisma {
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente_id?: IntFieldUpdateOperationsInput | number
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22470,6 +23991,7 @@ export namespace Prisma {
     despachos?: despachosCreateNestedManyWithoutPedidosInput
     pagos?: pagosCreateNestedManyWithoutPedidosInput
     clientes: clientesCreateNestedOneWithoutPedidosInput
+    vendedores: vendedoresCreateNestedOneWithoutPedidosInput
   }
 
   export type pedidosUncheckedCreateWithoutDetalle_pedidosInput = {
@@ -22477,6 +23999,7 @@ export namespace Prisma {
     numero: string
     fecha: Date | string
     cliente_id: number
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -22555,6 +24078,7 @@ export namespace Prisma {
     despachos?: despachosUpdateManyWithoutPedidosNestedInput
     pagos?: pagosUpdateManyWithoutPedidosNestedInput
     clientes?: clientesUpdateOneRequiredWithoutPedidosNestedInput
+    vendedores?: vendedoresUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type pedidosUncheckedUpdateWithoutDetalle_pedidosInput = {
@@ -22562,6 +24086,7 @@ export namespace Prisma {
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente_id?: IntFieldUpdateOperationsInput | number
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22829,6 +24354,7 @@ export namespace Prisma {
     despachos?: despachosCreateNestedManyWithoutPedidosInput
     detalle_pedidos?: detalle_pedidosCreateNestedManyWithoutPedidosInput
     clientes: clientesCreateNestedOneWithoutPedidosInput
+    vendedores: vendedoresCreateNestedOneWithoutPedidosInput
   }
 
   export type pedidosUncheckedCreateWithoutPagosInput = {
@@ -22836,6 +24362,7 @@ export namespace Prisma {
     numero: string
     fecha: Date | string
     cliente_id: number
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -22876,6 +24403,7 @@ export namespace Prisma {
     despachos?: despachosUpdateManyWithoutPedidosNestedInput
     detalle_pedidos?: detalle_pedidosUpdateManyWithoutPedidosNestedInput
     clientes?: clientesUpdateOneRequiredWithoutPedidosNestedInput
+    vendedores?: vendedoresUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type pedidosUncheckedUpdateWithoutPagosInput = {
@@ -22883,6 +24411,7 @@ export namespace Prisma {
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente_id?: IntFieldUpdateOperationsInput | number
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23019,6 +24548,36 @@ export namespace Prisma {
     create: XOR<clientesCreateWithoutPedidosInput, clientesUncheckedCreateWithoutPedidosInput>
   }
 
+  export type vendedoresCreateWithoutPedidosInput = {
+    nombre: string
+    numero_ruc?: string | null
+    direccion?: string | null
+    telefono?: string | null
+    email?: string | null
+    notas?: string | null
+    activo?: boolean
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type vendedoresUncheckedCreateWithoutPedidosInput = {
+    id?: number
+    nombre: string
+    numero_ruc?: string | null
+    direccion?: string | null
+    telefono?: string | null
+    email?: string | null
+    notas?: string | null
+    activo?: boolean
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type vendedoresCreateOrConnectWithoutPedidosInput = {
+    where: vendedoresWhereUniqueInput
+    create: XOR<vendedoresCreateWithoutPedidosInput, vendedoresUncheckedCreateWithoutPedidosInput>
+  }
+
   export type despachosUpsertWithWhereUniqueWithoutPedidosInput = {
     where: despachosWhereUniqueInput
     update: XOR<despachosUpdateWithoutPedidosInput, despachosUncheckedUpdateWithoutPedidosInput>
@@ -23141,6 +24700,42 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     tipo_documento?: Enumclientes_tipo_documentoFieldUpdateOperationsInput | $Enums.clientes_tipo_documento
     numero_documento?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type vendedoresUpsertWithoutPedidosInput = {
+    update: XOR<vendedoresUpdateWithoutPedidosInput, vendedoresUncheckedUpdateWithoutPedidosInput>
+    create: XOR<vendedoresCreateWithoutPedidosInput, vendedoresUncheckedCreateWithoutPedidosInput>
+    where?: vendedoresWhereInput
+  }
+
+  export type vendedoresUpdateToOneWithWhereWithoutPedidosInput = {
+    where?: vendedoresWhereInput
+    data: XOR<vendedoresUpdateWithoutPedidosInput, vendedoresUncheckedUpdateWithoutPedidosInput>
+  }
+
+  export type vendedoresUpdateWithoutPedidosInput = {
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    activo?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type vendedoresUncheckedUpdateWithoutPedidosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nombre?: StringFieldUpdateOperationsInput | string
+    numero_ruc?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23452,6 +25047,65 @@ export namespace Prisma {
     updated_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
   }
 
+  export type pedidosCreateWithoutVendedoresInput = {
+    numero: string
+    fecha: Date | string
+    subtotal?: Decimal | DecimalJsLike | number | string
+    igv?: Decimal | DecimalJsLike | number | string
+    total?: Decimal | DecimalJsLike | number | string
+    estado?: $Enums.pedidos_estado
+    notas?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    despachos?: despachosCreateNestedManyWithoutPedidosInput
+    detalle_pedidos?: detalle_pedidosCreateNestedManyWithoutPedidosInput
+    pagos?: pagosCreateNestedManyWithoutPedidosInput
+    clientes: clientesCreateNestedOneWithoutPedidosInput
+  }
+
+  export type pedidosUncheckedCreateWithoutVendedoresInput = {
+    id?: number
+    numero: string
+    fecha: Date | string
+    cliente_id: number
+    subtotal?: Decimal | DecimalJsLike | number | string
+    igv?: Decimal | DecimalJsLike | number | string
+    total?: Decimal | DecimalJsLike | number | string
+    estado?: $Enums.pedidos_estado
+    notas?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    despachos?: despachosUncheckedCreateNestedManyWithoutPedidosInput
+    detalle_pedidos?: detalle_pedidosUncheckedCreateNestedManyWithoutPedidosInput
+    pagos?: pagosUncheckedCreateNestedManyWithoutPedidosInput
+  }
+
+  export type pedidosCreateOrConnectWithoutVendedoresInput = {
+    where: pedidosWhereUniqueInput
+    create: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput>
+  }
+
+  export type pedidosCreateManyVendedoresInputEnvelope = {
+    data: pedidosCreateManyVendedoresInput | pedidosCreateManyVendedoresInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type pedidosUpsertWithWhereUniqueWithoutVendedoresInput = {
+    where: pedidosWhereUniqueInput
+    update: XOR<pedidosUpdateWithoutVendedoresInput, pedidosUncheckedUpdateWithoutVendedoresInput>
+    create: XOR<pedidosCreateWithoutVendedoresInput, pedidosUncheckedCreateWithoutVendedoresInput>
+  }
+
+  export type pedidosUpdateWithWhereUniqueWithoutVendedoresInput = {
+    where: pedidosWhereUniqueInput
+    data: XOR<pedidosUpdateWithoutVendedoresInput, pedidosUncheckedUpdateWithoutVendedoresInput>
+  }
+
+  export type pedidosUpdateManyWithWhereWithoutVendedoresInput = {
+    where: pedidosScalarWhereInput
+    data: XOR<pedidosUpdateManyMutationInput, pedidosUncheckedUpdateManyWithoutVendedoresInput>
+  }
+
   export type movimientos_cajaCreateManyCaja_diariaInput = {
     id?: number
     fecha_hora: Date | string
@@ -23566,6 +25220,7 @@ export namespace Prisma {
     id?: number
     numero: string
     fecha: Date | string
+    vendedor_id: number
     subtotal?: Decimal | DecimalJsLike | number | string
     igv?: Decimal | DecimalJsLike | number | string
     total?: Decimal | DecimalJsLike | number | string
@@ -23588,12 +25243,14 @@ export namespace Prisma {
     despachos?: despachosUpdateManyWithoutPedidosNestedInput
     detalle_pedidos?: detalle_pedidosUpdateManyWithoutPedidosNestedInput
     pagos?: pagosUpdateManyWithoutPedidosNestedInput
+    vendedores?: vendedoresUpdateOneRequiredWithoutPedidosNestedInput
   }
 
   export type pedidosUncheckedUpdateWithoutClientesInput = {
     id?: IntFieldUpdateOperationsInput | number
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23610,6 +25267,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     numero?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    vendedor_id?: IntFieldUpdateOperationsInput | number
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23964,6 +25622,67 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type pedidosCreateManyVendedoresInput = {
+    id?: number
+    numero: string
+    fecha: Date | string
+    cliente_id: number
+    subtotal?: Decimal | DecimalJsLike | number | string
+    igv?: Decimal | DecimalJsLike | number | string
+    total?: Decimal | DecimalJsLike | number | string
+    estado?: $Enums.pedidos_estado
+    notas?: string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type pedidosUpdateWithoutVendedoresInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estado?: Enumpedidos_estadoFieldUpdateOperationsInput | $Enums.pedidos_estado
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    despachos?: despachosUpdateManyWithoutPedidosNestedInput
+    detalle_pedidos?: detalle_pedidosUpdateManyWithoutPedidosNestedInput
+    pagos?: pagosUpdateManyWithoutPedidosNestedInput
+    clientes?: clientesUpdateOneRequiredWithoutPedidosNestedInput
+  }
+
+  export type pedidosUncheckedUpdateWithoutVendedoresInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente_id?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estado?: Enumpedidos_estadoFieldUpdateOperationsInput | $Enums.pedidos_estado
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    despachos?: despachosUncheckedUpdateManyWithoutPedidosNestedInput
+    detalle_pedidos?: detalle_pedidosUncheckedUpdateManyWithoutPedidosNestedInput
+    pagos?: pagosUncheckedUpdateManyWithoutPedidosNestedInput
+  }
+
+  export type pedidosUncheckedUpdateManyWithoutVendedoresInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente_id?: IntFieldUpdateOperationsInput | number
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igv?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estado?: Enumpedidos_estadoFieldUpdateOperationsInput | $Enums.pedidos_estado
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
