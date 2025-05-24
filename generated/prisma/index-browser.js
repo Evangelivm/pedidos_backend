@@ -194,7 +194,7 @@ exports.Prisma.Detalle_pedidosScalarFieldEnum = {
 exports.Prisma.Entradas_mercaderiaScalarFieldEnum = {
   id: 'id',
   fecha: 'fecha',
-  proveedor_id: 'proveedor_id',
+  proveedor: 'proveedor',
   numero_factura: 'numero_factura',
   total: 'total',
   notas: 'notas',
@@ -342,6 +342,7 @@ exports.Prisma.despachosOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.entradas_mercaderiaOrderByRelevanceFieldEnum = {
+  proveedor: 'proveedor',
   numero_factura: 'numero_factura',
   notas: 'notas'
 };

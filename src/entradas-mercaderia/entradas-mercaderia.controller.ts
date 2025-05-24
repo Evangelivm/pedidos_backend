@@ -33,8 +33,10 @@ export class EntradasMercaderiaController {
     status: 201,
     description: 'The merchandise entry has been successfully created.',
   })
-  @UsePipes(new ZodValidationPipe(CreateEntradaMercaderiaSchema))
-  create(@Body() createEntradaMercaderiaDto: CreateEntradaMercaderiaDto) {
+  create(
+    @Body(new ZodValidationPipe(CreateEntradaMercaderiaSchema))
+    createEntradaMercaderiaDto: CreateEntradaMercaderiaDto,
+  ) {
     return this.entradasMercaderiaService.create(createEntradaMercaderiaDto);
   }
 
@@ -46,18 +48,18 @@ export class EntradasMercaderiaController {
     return this.entradasMercaderiaService.findAll(paginationDto);
   }
 
-  @Get('proveedor/:proveedorId')
-  @ApiOperation({ summary: 'Get merchandise entries by supplier' })
+  @Get('proveedor/:proveedor')
+  @ApiOperation({ summary: 'Get merchandise entries by supplier name' })
   @ApiResponse({
     status: 200,
     description: 'Return merchandise entries by supplier.',
   })
   findByProveedor(
-    @Param('proveedorId') proveedorId: string,
+    @Param('proveedor') proveedor: string,
     @Query() paginationDto: PaginationDto,
   ) {
     return this.entradasMercaderiaService.findByProveedor(
-      +proveedorId,
+      proveedor,
       paginationDto,
     );
   }

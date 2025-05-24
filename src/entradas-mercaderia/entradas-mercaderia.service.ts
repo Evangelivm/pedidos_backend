@@ -17,18 +17,7 @@ export class EntradasMercaderiaService {
   async create(createEntradaMercaderiaDto: CreateEntradaMercaderiaDto) {
     const { detalle, ...entradaData } = createEntradaMercaderiaDto;
 
-    // Verify supplier exists
-    const proveedor = await this.prisma.proveedores.findUnique({
-      where: { id: entradaData.proveedor_id },
-    });
-
-    if (!proveedor) {
-      throw new BadRequestException(
-        `Proveedor con ID ${entradaData.proveedor_id} no encontrado`,
-      );
-    }
-
-    // Verify products exist
+    // Validar productos existentes
     for (const item of detalle) {
       const producto = await this.prisma.productos.findUnique({
         where: { id: item.producto_id },
@@ -41,23 +30,20 @@ export class EntradasMercaderiaService {
       }
     }
 
-    // Create merchandise entry with details in a transaction
+    // Crear entrada y actualizar stock en transacción
     return this.prisma.$transaction(async (prisma) => {
-      // Construimos el objeto data explícitamente
       const entradaCreateData = {
         fecha: new Date(entradaData.fecha),
-        proveedor_id: entradaData.proveedor_id,
+        proveedor: entradaData.proveedor,
         numero_factura: entradaData.numero_factura,
         total: entradaData.total,
         notas: entradaData.notas,
       };
 
-      // Create merchandise entry
       const entrada = await prisma.entradas_mercaderia.create({
         data: entradaCreateData,
       });
 
-      // Create merchandise entry details and update product stock
       for (const item of detalle) {
         const detalleData = {
           entrada_id: entrada.id,
@@ -71,7 +57,6 @@ export class EntradasMercaderiaService {
           data: detalleData,
         });
 
-        // Update product stock
         await prisma.productos.update({
           where: { id: item.producto_id },
           data: {
@@ -82,8 +67,16 @@ export class EntradasMercaderiaService {
         });
       }
 
-      // Return merchandise entry with details
-      return this.findOne(entrada.id);
+      return await prisma.entradas_mercaderia.findUnique({
+        where: { id: entrada.id },
+        include: {
+          detalle_entradas_mercaderia: {
+            include: {
+              productos: true,
+            },
+          },
+        },
+      });
     });
   }
 
@@ -99,7 +92,6 @@ export class EntradasMercaderiaService {
           ? { [orderBy]: orderDirection }
           : { id: orderDirection },
         include: {
-          proveedores: true,
           detalle_entradas_mercaderia: {
             include: {
               productos: true,
@@ -121,14 +113,16 @@ export class EntradasMercaderiaService {
     };
   }
 
-  async findByProveedor(proveedorId: number, paginationDto: PaginationDto) {
+  async findByProveedor(proveedor: string, paginationDto: PaginationDto) {
     const { page, limit, orderBy, orderDirection } = paginationDto;
     const skip = (page - 1) * limit;
 
     const [items, total] = await Promise.all([
       this.prisma.entradas_mercaderia.findMany({
         where: {
-          proveedor_id: proveedorId,
+          proveedor: {
+            contains: proveedor,
+          },
         },
         skip,
         take: limit,
@@ -136,7 +130,6 @@ export class EntradasMercaderiaService {
           ? { [orderBy]: orderDirection }
           : { id: orderDirection },
         include: {
-          proveedores: true,
           detalle_entradas_mercaderia: {
             include: {
               productos: true,
@@ -146,7 +139,9 @@ export class EntradasMercaderiaService {
       }),
       this.prisma.entradas_mercaderia.count({
         where: {
-          proveedor_id: proveedorId,
+          proveedor: {
+            contains: proveedor,
+          },
         },
       }),
     ]);
@@ -186,7 +181,6 @@ export class EntradasMercaderiaService {
           ? { [orderBy]: orderDirection }
           : { id: orderDirection },
         include: {
-          proveedores: true,
           detalle_entradas_mercaderia: {
             include: {
               productos: true,
@@ -219,7 +213,6 @@ export class EntradasMercaderiaService {
     const entrada = await this.prisma.entradas_mercaderia.findUnique({
       where: { id },
       include: {
-        proveedores: true,
         detalle_entradas_mercaderia: {
           include: {
             productos: true,
@@ -242,14 +235,13 @@ export class EntradasMercaderiaService {
     updateEntradaMercaderiaDto: UpdateEntradaMercaderiaDto,
   ) {
     try {
-      // Construimos el objeto data explícitamente
       const data: any = {};
 
       if (updateEntradaMercaderiaDto.fecha !== undefined) {
         data.fecha = new Date(updateEntradaMercaderiaDto.fecha);
       }
-      if (updateEntradaMercaderiaDto.proveedor_id !== undefined) {
-        data.proveedor_id = updateEntradaMercaderiaDto.proveedor_id;
+      if (updateEntradaMercaderiaDto.proveedor !== undefined) {
+        data.proveedor = updateEntradaMercaderiaDto.proveedor;
       }
       if (updateEntradaMercaderiaDto.numero_factura !== undefined) {
         data.numero_factura = updateEntradaMercaderiaDto.numero_factura;
@@ -264,9 +256,6 @@ export class EntradasMercaderiaService {
       return await this.prisma.entradas_mercaderia.update({
         where: { id },
         data,
-        include: {
-          proveedores: true,
-        },
       });
     } catch (error) {
       throw new NotFoundException(
@@ -277,7 +266,6 @@ export class EntradasMercaderiaService {
 
   async remove(id: number) {
     try {
-      // Get merchandise entry details to restore stock
       const entrada = await this.prisma.entradas_mercaderia.findUnique({
         where: { id },
         include: {
@@ -291,9 +279,7 @@ export class EntradasMercaderiaService {
         );
       }
 
-      // Delete merchandise entry and restore stock in a transaction
       return this.prisma.$transaction(async (prisma) => {
-        // Restore product stock
         for (const item of entrada.detalle_entradas_mercaderia) {
           await prisma.productos.update({
             where: { id: item.producto_id },
@@ -305,7 +291,6 @@ export class EntradasMercaderiaService {
           });
         }
 
-        // Delete merchandise entry (cascade will delete details)
         return await prisma.entradas_mercaderia.delete({
           where: { id },
         });

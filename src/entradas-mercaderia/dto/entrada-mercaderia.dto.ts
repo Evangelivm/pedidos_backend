@@ -13,7 +13,7 @@ export type DetalleEntradaMercaderiaDto = z.infer<
 
 export const CreateEntradaMercaderiaSchema = z.object({
   fecha: z.string().or(z.date()),
-  proveedor_id: z.number().int().positive(),
+  proveedor: z.string(), // Cambiado a string
   numero_factura: z.string().max(50).optional(),
   total: z.number().nonnegative(),
   notas: z.string().optional(),
@@ -26,7 +26,7 @@ export type CreateEntradaMercaderiaDto = z.infer<
 
 export const UpdateEntradaMercaderiaSchema = z.object({
   fecha: z.string().or(z.date()).optional(),
-  proveedor_id: z.number().int().positive().optional(),
+  proveedor: z.string().optional(), // Cambiado a string
   numero_factura: z.string().max(50).optional(),
   total: z.number().nonnegative().optional(),
   notas: z.string().optional(),

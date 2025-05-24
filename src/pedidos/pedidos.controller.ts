@@ -8,6 +8,7 @@ import {
   Param,
   Query,
   UsePipes,
+  Patch,
 } from '@nestjs/common';
 import { PedidosService } from './pedidos.service';
 import {
@@ -15,6 +16,8 @@ import {
   CreatePedidoSchema,
   UpdatePedidoDto,
   UpdatePedidoSchema,
+  UpdateClientePedidoSchema,
+  UpdateClientePedidoDto,
 } from './dto/pedido.dto';
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
 import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
@@ -88,6 +91,23 @@ export class PedidosController {
     updatePedidoDto: UpdatePedidoDto,
   ) {
     return this.pedidosService.update(id, updatePedidoDto);
+  }
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update the client id for an order' })
+  @ApiResponse({
+    status: 200,
+    description: 'The client id has been successfully updated.',
+  })
+  @ApiResponse({ status: 404, description: 'Order not found.' })
+  updateCliente(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ZodValidationPipe(UpdateClientePedidoSchema))
+    updateClientePedidoDto: UpdateClientePedidoDto,
+  ) {
+    return this.pedidosService.updateCliente(
+      id,
+      updateClientePedidoDto.cliente_id,
+    );
   }
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an order' })

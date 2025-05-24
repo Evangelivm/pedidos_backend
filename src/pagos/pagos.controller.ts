@@ -19,6 +19,7 @@ import {
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
 import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ParseIntPipe } from '@nestjs/common';
 
 @ApiTags('pagos')
 @Controller('pagos')
@@ -31,8 +32,9 @@ export class PagosController {
     status: 201,
     description: 'The payment has been successfully created.',
   })
-  @UsePipes(new ZodValidationPipe(CreatePagoSchema))
-  create(@Body() createPagoDto: CreatePagoDto) {
+  create(
+    @Body(new ZodValidationPipe(CreatePagoSchema)) createPagoDto: CreatePagoDto,
+  ) {
     return this.pagosService.create(createPagoDto);
   }
 
@@ -77,8 +79,11 @@ export class PagosController {
   })
   @ApiResponse({ status: 404, description: 'Payment not found.' })
   @UsePipes(new ZodValidationPipe(UpdatePagoSchema))
-  update(@Param('id') id: string, @Body() updatePagoDto: UpdatePagoDto) {
-    return this.pagosService.update(+id, updatePagoDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePagoDto: UpdatePagoDto,
+  ) {
+    return this.pagosService.update(id, updatePagoDto);
   }
 
   @Delete(':id')

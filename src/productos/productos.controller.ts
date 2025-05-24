@@ -19,6 +19,7 @@ import {
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
 import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ParseIntPipe } from '@nestjs/common';
 
 @ApiTags('productos')
 @Controller('productos')
@@ -66,8 +67,8 @@ export class ProductosController {
   @ApiResponse({ status: 200, description: 'Return the product.' })
   @ApiResponse({ status: 404, description: 'Product not found.' })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productosService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.productosService.findOne(id);
   }
 
   @ApiOperation({ summary: 'Update a product' })

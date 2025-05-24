@@ -54,6 +54,7 @@ export class PedidosService {
       total: pedidoData.total,
       estado: pedidoData.estado,
       notas: pedidoData.notas,
+      vendedor_id: pedidoData.vendedor_id,
     };
 
     // Create order with details in a transaction
@@ -112,18 +113,22 @@ export class PedidosService {
   }
 
   async findAll(paginationDto: PaginationDto) {
-    const { page, limit, orderBy, orderDirection } = paginationDto;
+    const { page, limit, orderBy, orderDirection = 'desc' } = paginationDto;
     const skip = (page - 1) * limit;
 
     const [items, total] = await Promise.all([
       this.prisma.pedidos.findMany({
         skip,
         take: limit,
-        orderBy: orderBy
-          ? { [orderBy]: orderDirection }
-          : { id: orderDirection },
+        orderBy: orderBy ? { [orderBy]: orderDirection } : { id: 'desc' },
         include: {
           clientes: true,
+          vendedores: {
+            select: {
+              id: true,
+              nombre: true,
+            },
+          },
           detalle_pedidos: {
             include: {
               productos: {
@@ -138,7 +143,14 @@ export class PedidosService {
               },
             },
           },
-          pagos: true,
+          pagos: {
+            // Modificado para seleccionar campos específicos
+            select: {
+              id: true,
+              monto: true,
+              metodo_pago: true,
+            },
+          },
           despachos: true,
         },
       }),
@@ -218,7 +230,30 @@ export class PedidosService {
 
     return pedido;
   }
+  async updateCliente(id: number, cliente_id: number) {
+    const pedido = await this.prisma.pedidos.findUnique({
+      where: { id },
+    });
+    if (!pedido) {
+      throw new NotFoundException(`Pedido con ID ${id} no encontrado`);
+    }
 
+    // Verificar que el cliente exista
+    const cliente = await this.prisma.clientes.findUnique({
+      where: { id: cliente_id },
+    });
+    if (!cliente) {
+      throw new BadRequestException(
+        `Cliente con ID ${cliente_id} no encontrado`,
+      );
+    }
+
+    return this.prisma.pedidos.update({
+      where: { id },
+      data: { cliente_id },
+      include: { clientes: true },
+    });
+  }
   async findOne(id: number) {
     const pedido = await this.prisma.pedidos.findUnique({
       where: { id: id },

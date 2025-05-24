@@ -13,6 +13,7 @@ export const CreatePedidoSchema = z.object({
   numero: z.string().min(1).max(20),
   fecha: z.string().or(z.date()),
   cliente_id: z.number().int().positive(),
+  vendedor_id: z.number().int().positive(),
   subtotal: z.number().nonnegative(),
   igv: z.number().nonnegative(),
   total: z.number().nonnegative(),
@@ -34,3 +35,8 @@ export const UpdatePedidoSchema = z.object({
 });
 
 export type UpdatePedidoDto = z.infer<typeof UpdatePedidoSchema>;
+
+export const UpdateClientePedidoSchema = z.object({
+  cliente_id: z.number().int().positive(),
+});
+export type UpdateClientePedidoDto = z.infer<typeof UpdateClientePedidoSchema>;

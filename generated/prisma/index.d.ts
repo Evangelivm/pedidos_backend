@@ -2376,37 +2376,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ProveedoresCountOutputType
-   */
-
-  export type ProveedoresCountOutputType = {
-    entradas_mercaderia: number
-  }
-
-  export type ProveedoresCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    entradas_mercaderia?: boolean | ProveedoresCountOutputTypeCountEntradas_mercaderiaArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ProveedoresCountOutputType without action
-   */
-  export type ProveedoresCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProveedoresCountOutputType
-     */
-    select?: ProveedoresCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ProveedoresCountOutputType without action
-   */
-  export type ProveedoresCountOutputTypeCountEntradas_mercaderiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: entradas_mercaderiaWhereInput
-  }
-
-
-  /**
    * Count Type VendedoresCountOutputType
    */
 
@@ -8636,20 +8605,18 @@ export namespace Prisma {
 
   export type Entradas_mercaderiaAvgAggregateOutputType = {
     id: number | null
-    proveedor_id: number | null
     total: Decimal | null
   }
 
   export type Entradas_mercaderiaSumAggregateOutputType = {
     id: number | null
-    proveedor_id: number | null
     total: Decimal | null
   }
 
   export type Entradas_mercaderiaMinAggregateOutputType = {
     id: number | null
     fecha: Date | null
-    proveedor_id: number | null
+    proveedor: string | null
     numero_factura: string | null
     total: Decimal | null
     notas: string | null
@@ -8660,7 +8627,7 @@ export namespace Prisma {
   export type Entradas_mercaderiaMaxAggregateOutputType = {
     id: number | null
     fecha: Date | null
-    proveedor_id: number | null
+    proveedor: string | null
     numero_factura: string | null
     total: Decimal | null
     notas: string | null
@@ -8671,7 +8638,7 @@ export namespace Prisma {
   export type Entradas_mercaderiaCountAggregateOutputType = {
     id: number
     fecha: number
-    proveedor_id: number
+    proveedor: number
     numero_factura: number
     total: number
     notas: number
@@ -8683,20 +8650,18 @@ export namespace Prisma {
 
   export type Entradas_mercaderiaAvgAggregateInputType = {
     id?: true
-    proveedor_id?: true
     total?: true
   }
 
   export type Entradas_mercaderiaSumAggregateInputType = {
     id?: true
-    proveedor_id?: true
     total?: true
   }
 
   export type Entradas_mercaderiaMinAggregateInputType = {
     id?: true
     fecha?: true
-    proveedor_id?: true
+    proveedor?: true
     numero_factura?: true
     total?: true
     notas?: true
@@ -8707,7 +8672,7 @@ export namespace Prisma {
   export type Entradas_mercaderiaMaxAggregateInputType = {
     id?: true
     fecha?: true
-    proveedor_id?: true
+    proveedor?: true
     numero_factura?: true
     total?: true
     notas?: true
@@ -8718,7 +8683,7 @@ export namespace Prisma {
   export type Entradas_mercaderiaCountAggregateInputType = {
     id?: true
     fecha?: true
-    proveedor_id?: true
+    proveedor?: true
     numero_factura?: true
     total?: true
     notas?: true
@@ -8816,7 +8781,7 @@ export namespace Prisma {
   export type Entradas_mercaderiaGroupByOutputType = {
     id: number
     fecha: Date
-    proveedor_id: number
+    proveedor: string | null
     numero_factura: string | null
     total: Decimal
     notas: string | null
@@ -8846,14 +8811,13 @@ export namespace Prisma {
   export type entradas_mercaderiaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     fecha?: boolean
-    proveedor_id?: boolean
+    proveedor?: boolean
     numero_factura?: boolean
     total?: boolean
     notas?: boolean
     created_at?: boolean
     updated_at?: boolean
     detalle_entradas_mercaderia?: boolean | entradas_mercaderia$detalle_entradas_mercaderiaArgs<ExtArgs>
-    proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     _count?: boolean | Entradas_mercaderiaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["entradas_mercaderia"]>
 
@@ -8862,7 +8826,7 @@ export namespace Prisma {
   export type entradas_mercaderiaSelectScalar = {
     id?: boolean
     fecha?: boolean
-    proveedor_id?: boolean
+    proveedor?: boolean
     numero_factura?: boolean
     total?: boolean
     notas?: boolean
@@ -8870,10 +8834,9 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type entradas_mercaderiaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fecha" | "proveedor_id" | "numero_factura" | "total" | "notas" | "created_at" | "updated_at", ExtArgs["result"]["entradas_mercaderia"]>
+  export type entradas_mercaderiaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fecha" | "proveedor" | "numero_factura" | "total" | "notas" | "created_at" | "updated_at", ExtArgs["result"]["entradas_mercaderia"]>
   export type entradas_mercaderiaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     detalle_entradas_mercaderia?: boolean | entradas_mercaderia$detalle_entradas_mercaderiaArgs<ExtArgs>
-    proveedores?: boolean | proveedoresDefaultArgs<ExtArgs>
     _count?: boolean | Entradas_mercaderiaCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -8881,12 +8844,11 @@ export namespace Prisma {
     name: "entradas_mercaderia"
     objects: {
       detalle_entradas_mercaderia: Prisma.$detalle_entradas_mercaderiaPayload<ExtArgs>[]
-      proveedores: Prisma.$proveedoresPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       fecha: Date
-      proveedor_id: number
+      proveedor: string | null
       numero_factura: string | null
       total: Prisma.Decimal
       notas: string | null
@@ -9233,7 +9195,6 @@ export namespace Prisma {
   export interface Prisma__entradas_mercaderiaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     detalle_entradas_mercaderia<T extends entradas_mercaderia$detalle_entradas_mercaderiaArgs<ExtArgs> = {}>(args?: Subset<T, entradas_mercaderia$detalle_entradas_mercaderiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$detalle_entradas_mercaderiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    proveedores<T extends proveedoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, proveedoresDefaultArgs<ExtArgs>>): Prisma__proveedoresClient<$Result.GetResult<Prisma.$proveedoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9265,7 +9226,7 @@ export namespace Prisma {
   interface entradas_mercaderiaFieldRefs {
     readonly id: FieldRef<"entradas_mercaderia", 'Int'>
     readonly fecha: FieldRef<"entradas_mercaderia", 'DateTime'>
-    readonly proveedor_id: FieldRef<"entradas_mercaderia", 'Int'>
+    readonly proveedor: FieldRef<"entradas_mercaderia", 'String'>
     readonly numero_factura: FieldRef<"entradas_mercaderia", 'String'>
     readonly total: FieldRef<"entradas_mercaderia", 'Decimal'>
     readonly notas: FieldRef<"entradas_mercaderia", 'String'>
@@ -16198,8 +16159,6 @@ export namespace Prisma {
     activo?: boolean
     created_at?: boolean
     updated_at?: boolean
-    entradas_mercaderia?: boolean | proveedores$entradas_mercaderiaArgs<ExtArgs>
-    _count?: boolean | ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["proveedores"]>
 
 
@@ -16219,16 +16178,10 @@ export namespace Prisma {
   }
 
   export type proveedoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "ruc" | "direccion" | "telefono" | "email" | "contacto" | "notas" | "activo" | "created_at" | "updated_at", ExtArgs["result"]["proveedores"]>
-  export type proveedoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    entradas_mercaderia?: boolean | proveedores$entradas_mercaderiaArgs<ExtArgs>
-    _count?: boolean | ProveedoresCountOutputTypeDefaultArgs<ExtArgs>
-  }
 
   export type $proveedoresPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "proveedores"
-    objects: {
-      entradas_mercaderia: Prisma.$entradas_mercaderiaPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nombre: string
@@ -16581,7 +16534,6 @@ export namespace Prisma {
    */
   export interface Prisma__proveedoresClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    entradas_mercaderia<T extends proveedores$entradas_mercaderiaArgs<ExtArgs> = {}>(args?: Subset<T, proveedores$entradas_mercaderiaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$entradas_mercaderiaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16639,10 +16591,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * Filter, which proveedores to fetch.
      */
     where: proveedoresWhereUniqueInput
@@ -16661,10 +16609,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * Filter, which proveedores to fetch.
      */
     where: proveedoresWhereUniqueInput
@@ -16682,10 +16626,6 @@ export namespace Prisma {
      * Omit specific fields from the proveedores
      */
     omit?: proveedoresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
     /**
      * Filter, which proveedores to fetch.
      */
@@ -16735,10 +16675,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * Filter, which proveedores to fetch.
      */
     where?: proveedoresWhereInput
@@ -16787,10 +16723,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * Filter, which proveedores to fetch.
      */
     where?: proveedoresWhereInput
@@ -16834,10 +16766,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * The data needed to create a proveedores.
      */
     data: XOR<proveedoresCreateInput, proveedoresUncheckedCreateInput>
@@ -16866,10 +16794,6 @@ export namespace Prisma {
      * Omit specific fields from the proveedores
      */
     omit?: proveedoresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
     /**
      * The data needed to update a proveedores.
      */
@@ -16911,10 +16835,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * The filter to search for the proveedores to update in case it exists.
      */
     where: proveedoresWhereUniqueInput
@@ -16941,10 +16861,6 @@ export namespace Prisma {
      */
     omit?: proveedoresOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
-    /**
      * Filter which proveedores to delete.
      */
     where: proveedoresWhereUniqueInput
@@ -16965,30 +16881,6 @@ export namespace Prisma {
   }
 
   /**
-   * proveedores.entradas_mercaderia
-   */
-  export type proveedores$entradas_mercaderiaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the entradas_mercaderia
-     */
-    select?: entradas_mercaderiaSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the entradas_mercaderia
-     */
-    omit?: entradas_mercaderiaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: entradas_mercaderiaInclude<ExtArgs> | null
-    where?: entradas_mercaderiaWhereInput
-    orderBy?: entradas_mercaderiaOrderByWithRelationInput | entradas_mercaderiaOrderByWithRelationInput[]
-    cursor?: entradas_mercaderiaWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Entradas_mercaderiaScalarFieldEnum | Entradas_mercaderiaScalarFieldEnum[]
-  }
-
-  /**
    * proveedores without action
    */
   export type proveedoresDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17000,10 +16892,6 @@ export namespace Prisma {
      * Omit specific fields from the proveedores
      */
     omit?: proveedoresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: proveedoresInclude<ExtArgs> | null
   }
 
 
@@ -18157,7 +18045,7 @@ export namespace Prisma {
   export const Entradas_mercaderiaScalarFieldEnum: {
     id: 'id',
     fecha: 'fecha',
-    proveedor_id: 'proveedor_id',
+    proveedor: 'proveedor',
     numero_factura: 'numero_factura',
     total: 'total',
     notas: 'notas',
@@ -18350,6 +18238,7 @@ export namespace Prisma {
 
 
   export const entradas_mercaderiaOrderByRelevanceFieldEnum: {
+    proveedor: 'proveedor',
     numero_factura: 'numero_factura',
     notas: 'notas'
   };
@@ -19011,27 +18900,25 @@ export namespace Prisma {
     NOT?: entradas_mercaderiaWhereInput | entradas_mercaderiaWhereInput[]
     id?: IntFilter<"entradas_mercaderia"> | number
     fecha?: DateTimeFilter<"entradas_mercaderia"> | Date | string
-    proveedor_id?: IntFilter<"entradas_mercaderia"> | number
+    proveedor?: StringNullableFilter<"entradas_mercaderia"> | string | null
     numero_factura?: StringNullableFilter<"entradas_mercaderia"> | string | null
     total?: DecimalFilter<"entradas_mercaderia"> | Decimal | DecimalJsLike | number | string
     notas?: StringNullableFilter<"entradas_mercaderia"> | string | null
     created_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
     detalle_entradas_mercaderia?: Detalle_entradas_mercaderiaListRelationFilter
-    proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
   }
 
   export type entradas_mercaderiaOrderByWithRelationInput = {
     id?: SortOrder
     fecha?: SortOrder
-    proveedor_id?: SortOrder
+    proveedor?: SortOrderInput | SortOrder
     numero_factura?: SortOrderInput | SortOrder
     total?: SortOrder
     notas?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     detalle_entradas_mercaderia?: detalle_entradas_mercaderiaOrderByRelationAggregateInput
-    proveedores?: proveedoresOrderByWithRelationInput
     _relevance?: entradas_mercaderiaOrderByRelevanceInput
   }
 
@@ -19041,20 +18928,19 @@ export namespace Prisma {
     OR?: entradas_mercaderiaWhereInput[]
     NOT?: entradas_mercaderiaWhereInput | entradas_mercaderiaWhereInput[]
     fecha?: DateTimeFilter<"entradas_mercaderia"> | Date | string
-    proveedor_id?: IntFilter<"entradas_mercaderia"> | number
+    proveedor?: StringNullableFilter<"entradas_mercaderia"> | string | null
     numero_factura?: StringNullableFilter<"entradas_mercaderia"> | string | null
     total?: DecimalFilter<"entradas_mercaderia"> | Decimal | DecimalJsLike | number | string
     notas?: StringNullableFilter<"entradas_mercaderia"> | string | null
     created_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
     detalle_entradas_mercaderia?: Detalle_entradas_mercaderiaListRelationFilter
-    proveedores?: XOR<ProveedoresScalarRelationFilter, proveedoresWhereInput>
   }, "id">
 
   export type entradas_mercaderiaOrderByWithAggregationInput = {
     id?: SortOrder
     fecha?: SortOrder
-    proveedor_id?: SortOrder
+    proveedor?: SortOrderInput | SortOrder
     numero_factura?: SortOrderInput | SortOrder
     total?: SortOrder
     notas?: SortOrderInput | SortOrder
@@ -19073,7 +18959,7 @@ export namespace Prisma {
     NOT?: entradas_mercaderiaScalarWhereWithAggregatesInput | entradas_mercaderiaScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"entradas_mercaderia"> | number
     fecha?: DateTimeWithAggregatesFilter<"entradas_mercaderia"> | Date | string
-    proveedor_id?: IntWithAggregatesFilter<"entradas_mercaderia"> | number
+    proveedor?: StringNullableWithAggregatesFilter<"entradas_mercaderia"> | string | null
     numero_factura?: StringNullableWithAggregatesFilter<"entradas_mercaderia"> | string | null
     total?: DecimalWithAggregatesFilter<"entradas_mercaderia"> | Decimal | DecimalJsLike | number | string
     notas?: StringNullableWithAggregatesFilter<"entradas_mercaderia"> | string | null
@@ -19607,7 +19493,6 @@ export namespace Prisma {
     activo?: BoolFilter<"proveedores"> | boolean
     created_at?: DateTimeNullableFilter<"proveedores"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"proveedores"> | Date | string | null
-    entradas_mercaderia?: Entradas_mercaderiaListRelationFilter
   }
 
   export type proveedoresOrderByWithRelationInput = {
@@ -19622,7 +19507,6 @@ export namespace Prisma {
     activo?: SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
-    entradas_mercaderia?: entradas_mercaderiaOrderByRelationAggregateInput
     _relevance?: proveedoresOrderByRelevanceInput
   }
 
@@ -19641,7 +19525,6 @@ export namespace Prisma {
     activo?: BoolFilter<"proveedores"> | boolean
     created_at?: DateTimeNullableFilter<"proveedores"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"proveedores"> | Date | string | null
-    entradas_mercaderia?: Entradas_mercaderiaListRelationFilter
   }, "id" | "ruc">
 
   export type proveedoresOrderByWithAggregationInput = {
@@ -20251,19 +20134,19 @@ export namespace Prisma {
 
   export type entradas_mercaderiaCreateInput = {
     fecha: Date | string
+    proveedor?: string | null
     numero_factura?: string | null
     total?: Decimal | DecimalJsLike | number | string
     notas?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     detalle_entradas_mercaderia?: detalle_entradas_mercaderiaCreateNestedManyWithoutEntradas_mercaderiaInput
-    proveedores: proveedoresCreateNestedOneWithoutEntradas_mercaderiaInput
   }
 
   export type entradas_mercaderiaUncheckedCreateInput = {
     id?: number
     fecha: Date | string
-    proveedor_id: number
+    proveedor?: string | null
     numero_factura?: string | null
     total?: Decimal | DecimalJsLike | number | string
     notas?: string | null
@@ -20274,19 +20157,19 @@ export namespace Prisma {
 
   export type entradas_mercaderiaUpdateInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     detalle_entradas_mercaderia?: detalle_entradas_mercaderiaUpdateManyWithoutEntradas_mercaderiaNestedInput
-    proveedores?: proveedoresUpdateOneRequiredWithoutEntradas_mercaderiaNestedInput
   }
 
   export type entradas_mercaderiaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    proveedor_id?: IntFieldUpdateOperationsInput | number
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20298,7 +20181,7 @@ export namespace Prisma {
   export type entradas_mercaderiaCreateManyInput = {
     id?: number
     fecha: Date | string
-    proveedor_id: number
+    proveedor?: string | null
     numero_factura?: string | null
     total?: Decimal | DecimalJsLike | number | string
     notas?: string | null
@@ -20308,6 +20191,7 @@ export namespace Prisma {
 
   export type entradas_mercaderiaUpdateManyMutationInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20318,7 +20202,7 @@ export namespace Prisma {
   export type entradas_mercaderiaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    proveedor_id?: IntFieldUpdateOperationsInput | number
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20876,7 +20760,6 @@ export namespace Prisma {
     activo?: boolean
     created_at?: Date | string | null
     updated_at?: Date | string | null
-    entradas_mercaderia?: entradas_mercaderiaCreateNestedManyWithoutProveedoresInput
   }
 
   export type proveedoresUncheckedCreateInput = {
@@ -20891,7 +20774,6 @@ export namespace Prisma {
     activo?: boolean
     created_at?: Date | string | null
     updated_at?: Date | string | null
-    entradas_mercaderia?: entradas_mercaderiaUncheckedCreateNestedManyWithoutProveedoresInput
   }
 
   export type proveedoresUpdateInput = {
@@ -20905,7 +20787,6 @@ export namespace Prisma {
     activo?: BoolFieldUpdateOperationsInput | boolean
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    entradas_mercaderia?: entradas_mercaderiaUpdateManyWithoutProveedoresNestedInput
   }
 
   export type proveedoresUncheckedUpdateInput = {
@@ -20920,7 +20801,6 @@ export namespace Prisma {
     activo?: BoolFieldUpdateOperationsInput | boolean
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    entradas_mercaderia?: entradas_mercaderiaUncheckedUpdateManyWithoutProveedoresNestedInput
   }
 
   export type proveedoresCreateManyInput = {
@@ -21690,11 +21570,6 @@ export namespace Prisma {
     none?: detalle_entradas_mercaderiaWhereInput
   }
 
-  export type ProveedoresScalarRelationFilter = {
-    is?: proveedoresWhereInput
-    isNot?: proveedoresWhereInput
-  }
-
   export type detalle_entradas_mercaderiaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -21708,7 +21583,7 @@ export namespace Prisma {
   export type entradas_mercaderiaCountOrderByAggregateInput = {
     id?: SortOrder
     fecha?: SortOrder
-    proveedor_id?: SortOrder
+    proveedor?: SortOrder
     numero_factura?: SortOrder
     total?: SortOrder
     notas?: SortOrder
@@ -21718,14 +21593,13 @@ export namespace Prisma {
 
   export type entradas_mercaderiaAvgOrderByAggregateInput = {
     id?: SortOrder
-    proveedor_id?: SortOrder
     total?: SortOrder
   }
 
   export type entradas_mercaderiaMaxOrderByAggregateInput = {
     id?: SortOrder
     fecha?: SortOrder
-    proveedor_id?: SortOrder
+    proveedor?: SortOrder
     numero_factura?: SortOrder
     total?: SortOrder
     notas?: SortOrder
@@ -21736,7 +21610,7 @@ export namespace Prisma {
   export type entradas_mercaderiaMinOrderByAggregateInput = {
     id?: SortOrder
     fecha?: SortOrder
-    proveedor_id?: SortOrder
+    proveedor?: SortOrder
     numero_factura?: SortOrder
     total?: SortOrder
     notas?: SortOrder
@@ -21746,7 +21620,6 @@ export namespace Prisma {
 
   export type entradas_mercaderiaSumOrderByAggregateInput = {
     id?: SortOrder
-    proveedor_id?: SortOrder
     total?: SortOrder
   }
 
@@ -22266,16 +22139,6 @@ export namespace Prisma {
     stock_minimo?: SortOrder
   }
 
-  export type Entradas_mercaderiaListRelationFilter = {
-    every?: entradas_mercaderiaWhereInput
-    some?: entradas_mercaderiaWhereInput
-    none?: entradas_mercaderiaWhereInput
-  }
-
-  export type entradas_mercaderiaOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type proveedoresOrderByRelevanceInput = {
     fields: proveedoresOrderByRelevanceFieldEnum | proveedoresOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -22644,12 +22507,6 @@ export namespace Prisma {
     connect?: detalle_entradas_mercaderiaWhereUniqueInput | detalle_entradas_mercaderiaWhereUniqueInput[]
   }
 
-  export type proveedoresCreateNestedOneWithoutEntradas_mercaderiaInput = {
-    create?: XOR<proveedoresCreateWithoutEntradas_mercaderiaInput, proveedoresUncheckedCreateWithoutEntradas_mercaderiaInput>
-    connectOrCreate?: proveedoresCreateOrConnectWithoutEntradas_mercaderiaInput
-    connect?: proveedoresWhereUniqueInput
-  }
-
   export type detalle_entradas_mercaderiaUncheckedCreateNestedManyWithoutEntradas_mercaderiaInput = {
     create?: XOR<detalle_entradas_mercaderiaCreateWithoutEntradas_mercaderiaInput, detalle_entradas_mercaderiaUncheckedCreateWithoutEntradas_mercaderiaInput> | detalle_entradas_mercaderiaCreateWithoutEntradas_mercaderiaInput[] | detalle_entradas_mercaderiaUncheckedCreateWithoutEntradas_mercaderiaInput[]
     connectOrCreate?: detalle_entradas_mercaderiaCreateOrConnectWithoutEntradas_mercaderiaInput | detalle_entradas_mercaderiaCreateOrConnectWithoutEntradas_mercaderiaInput[]
@@ -22669,14 +22526,6 @@ export namespace Prisma {
     update?: detalle_entradas_mercaderiaUpdateWithWhereUniqueWithoutEntradas_mercaderiaInput | detalle_entradas_mercaderiaUpdateWithWhereUniqueWithoutEntradas_mercaderiaInput[]
     updateMany?: detalle_entradas_mercaderiaUpdateManyWithWhereWithoutEntradas_mercaderiaInput | detalle_entradas_mercaderiaUpdateManyWithWhereWithoutEntradas_mercaderiaInput[]
     deleteMany?: detalle_entradas_mercaderiaScalarWhereInput | detalle_entradas_mercaderiaScalarWhereInput[]
-  }
-
-  export type proveedoresUpdateOneRequiredWithoutEntradas_mercaderiaNestedInput = {
-    create?: XOR<proveedoresCreateWithoutEntradas_mercaderiaInput, proveedoresUncheckedCreateWithoutEntradas_mercaderiaInput>
-    connectOrCreate?: proveedoresCreateOrConnectWithoutEntradas_mercaderiaInput
-    upsert?: proveedoresUpsertWithoutEntradas_mercaderiaInput
-    connect?: proveedoresWhereUniqueInput
-    update?: XOR<XOR<proveedoresUpdateToOneWithWhereWithoutEntradas_mercaderiaInput, proveedoresUpdateWithoutEntradas_mercaderiaInput>, proveedoresUncheckedUpdateWithoutEntradas_mercaderiaInput>
   }
 
   export type detalle_entradas_mercaderiaUncheckedUpdateManyWithoutEntradas_mercaderiaNestedInput = {
@@ -23055,48 +22904,6 @@ export namespace Prisma {
     update?: detalle_pedidosUpdateWithWhereUniqueWithoutProductosInput | detalle_pedidosUpdateWithWhereUniqueWithoutProductosInput[]
     updateMany?: detalle_pedidosUpdateManyWithWhereWithoutProductosInput | detalle_pedidosUpdateManyWithWhereWithoutProductosInput[]
     deleteMany?: detalle_pedidosScalarWhereInput | detalle_pedidosScalarWhereInput[]
-  }
-
-  export type entradas_mercaderiaCreateNestedManyWithoutProveedoresInput = {
-    create?: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput> | entradas_mercaderiaCreateWithoutProveedoresInput[] | entradas_mercaderiaUncheckedCreateWithoutProveedoresInput[]
-    connectOrCreate?: entradas_mercaderiaCreateOrConnectWithoutProveedoresInput | entradas_mercaderiaCreateOrConnectWithoutProveedoresInput[]
-    createMany?: entradas_mercaderiaCreateManyProveedoresInputEnvelope
-    connect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-  }
-
-  export type entradas_mercaderiaUncheckedCreateNestedManyWithoutProveedoresInput = {
-    create?: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput> | entradas_mercaderiaCreateWithoutProveedoresInput[] | entradas_mercaderiaUncheckedCreateWithoutProveedoresInput[]
-    connectOrCreate?: entradas_mercaderiaCreateOrConnectWithoutProveedoresInput | entradas_mercaderiaCreateOrConnectWithoutProveedoresInput[]
-    createMany?: entradas_mercaderiaCreateManyProveedoresInputEnvelope
-    connect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-  }
-
-  export type entradas_mercaderiaUpdateManyWithoutProveedoresNestedInput = {
-    create?: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput> | entradas_mercaderiaCreateWithoutProveedoresInput[] | entradas_mercaderiaUncheckedCreateWithoutProveedoresInput[]
-    connectOrCreate?: entradas_mercaderiaCreateOrConnectWithoutProveedoresInput | entradas_mercaderiaCreateOrConnectWithoutProveedoresInput[]
-    upsert?: entradas_mercaderiaUpsertWithWhereUniqueWithoutProveedoresInput | entradas_mercaderiaUpsertWithWhereUniqueWithoutProveedoresInput[]
-    createMany?: entradas_mercaderiaCreateManyProveedoresInputEnvelope
-    set?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    disconnect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    delete?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    connect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    update?: entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput | entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput[]
-    updateMany?: entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput | entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput[]
-    deleteMany?: entradas_mercaderiaScalarWhereInput | entradas_mercaderiaScalarWhereInput[]
-  }
-
-  export type entradas_mercaderiaUncheckedUpdateManyWithoutProveedoresNestedInput = {
-    create?: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput> | entradas_mercaderiaCreateWithoutProveedoresInput[] | entradas_mercaderiaUncheckedCreateWithoutProveedoresInput[]
-    connectOrCreate?: entradas_mercaderiaCreateOrConnectWithoutProveedoresInput | entradas_mercaderiaCreateOrConnectWithoutProveedoresInput[]
-    upsert?: entradas_mercaderiaUpsertWithWhereUniqueWithoutProveedoresInput | entradas_mercaderiaUpsertWithWhereUniqueWithoutProveedoresInput[]
-    createMany?: entradas_mercaderiaCreateManyProveedoresInputEnvelope
-    set?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    disconnect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    delete?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    connect?: entradas_mercaderiaWhereUniqueInput | entradas_mercaderiaWhereUniqueInput[]
-    update?: entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput | entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput[]
-    updateMany?: entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput | entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput[]
-    deleteMany?: entradas_mercaderiaScalarWhereInput | entradas_mercaderiaScalarWhereInput[]
   }
 
   export type pedidosCreateNestedManyWithoutVendedoresInput = {
@@ -23840,18 +23647,18 @@ export namespace Prisma {
 
   export type entradas_mercaderiaCreateWithoutDetalle_entradas_mercaderiaInput = {
     fecha: Date | string
+    proveedor?: string | null
     numero_factura?: string | null
     total?: Decimal | DecimalJsLike | number | string
     notas?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
-    proveedores: proveedoresCreateNestedOneWithoutEntradas_mercaderiaInput
   }
 
   export type entradas_mercaderiaUncheckedCreateWithoutDetalle_entradas_mercaderiaInput = {
     id?: number
     fecha: Date | string
-    proveedor_id: number
+    proveedor?: string | null
     numero_factura?: string | null
     total?: Decimal | DecimalJsLike | number | string
     notas?: string | null
@@ -23915,18 +23722,18 @@ export namespace Prisma {
 
   export type entradas_mercaderiaUpdateWithoutDetalle_entradas_mercaderiaInput = {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    proveedores?: proveedoresUpdateOneRequiredWithoutEntradas_mercaderiaNestedInput
   }
 
   export type entradas_mercaderiaUncheckedUpdateWithoutDetalle_entradas_mercaderiaInput = {
     id?: IntFieldUpdateOperationsInput | number
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    proveedor_id?: IntFieldUpdateOperationsInput | number
+    proveedor?: NullableStringFieldUpdateOperationsInput | string | null
     numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
     total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24171,38 +23978,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type proveedoresCreateWithoutEntradas_mercaderiaInput = {
-    nombre: string
-    ruc?: string | null
-    direccion?: string | null
-    telefono?: string | null
-    email?: string | null
-    contacto?: string | null
-    notas?: string | null
-    activo?: boolean
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type proveedoresUncheckedCreateWithoutEntradas_mercaderiaInput = {
-    id?: number
-    nombre: string
-    ruc?: string | null
-    direccion?: string | null
-    telefono?: string | null
-    email?: string | null
-    contacto?: string | null
-    notas?: string | null
-    activo?: boolean
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type proveedoresCreateOrConnectWithoutEntradas_mercaderiaInput = {
-    where: proveedoresWhereUniqueInput
-    create: XOR<proveedoresCreateWithoutEntradas_mercaderiaInput, proveedoresUncheckedCreateWithoutEntradas_mercaderiaInput>
-  }
-
   export type detalle_entradas_mercaderiaUpsertWithWhereUniqueWithoutEntradas_mercaderiaInput = {
     where: detalle_entradas_mercaderiaWhereUniqueInput
     update: XOR<detalle_entradas_mercaderiaUpdateWithoutEntradas_mercaderiaInput, detalle_entradas_mercaderiaUncheckedUpdateWithoutEntradas_mercaderiaInput>
@@ -24231,44 +24006,6 @@ export namespace Prisma {
     subtotal?: DecimalFilter<"detalle_entradas_mercaderia"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeNullableFilter<"detalle_entradas_mercaderia"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"detalle_entradas_mercaderia"> | Date | string | null
-  }
-
-  export type proveedoresUpsertWithoutEntradas_mercaderiaInput = {
-    update: XOR<proveedoresUpdateWithoutEntradas_mercaderiaInput, proveedoresUncheckedUpdateWithoutEntradas_mercaderiaInput>
-    create: XOR<proveedoresCreateWithoutEntradas_mercaderiaInput, proveedoresUncheckedCreateWithoutEntradas_mercaderiaInput>
-    where?: proveedoresWhereInput
-  }
-
-  export type proveedoresUpdateToOneWithWhereWithoutEntradas_mercaderiaInput = {
-    where?: proveedoresWhereInput
-    data: XOR<proveedoresUpdateWithoutEntradas_mercaderiaInput, proveedoresUncheckedUpdateWithoutEntradas_mercaderiaInput>
-  }
-
-  export type proveedoresUpdateWithoutEntradas_mercaderiaInput = {
-    nombre?: StringFieldUpdateOperationsInput | string
-    ruc?: NullableStringFieldUpdateOperationsInput | string | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    contacto?: NullableStringFieldUpdateOperationsInput | string | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type proveedoresUncheckedUpdateWithoutEntradas_mercaderiaInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    ruc?: NullableStringFieldUpdateOperationsInput | string | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    contacto?: NullableStringFieldUpdateOperationsInput | string | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    activo?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type caja_diariaCreateWithoutMovimientos_cajaInput = {
@@ -24986,67 +24723,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type entradas_mercaderiaCreateWithoutProveedoresInput = {
-    fecha: Date | string
-    numero_factura?: string | null
-    total?: Decimal | DecimalJsLike | number | string
-    notas?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    detalle_entradas_mercaderia?: detalle_entradas_mercaderiaCreateNestedManyWithoutEntradas_mercaderiaInput
-  }
-
-  export type entradas_mercaderiaUncheckedCreateWithoutProveedoresInput = {
-    id?: number
-    fecha: Date | string
-    numero_factura?: string | null
-    total?: Decimal | DecimalJsLike | number | string
-    notas?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    detalle_entradas_mercaderia?: detalle_entradas_mercaderiaUncheckedCreateNestedManyWithoutEntradas_mercaderiaInput
-  }
-
-  export type entradas_mercaderiaCreateOrConnectWithoutProveedoresInput = {
-    where: entradas_mercaderiaWhereUniqueInput
-    create: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput>
-  }
-
-  export type entradas_mercaderiaCreateManyProveedoresInputEnvelope = {
-    data: entradas_mercaderiaCreateManyProveedoresInput | entradas_mercaderiaCreateManyProveedoresInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type entradas_mercaderiaUpsertWithWhereUniqueWithoutProveedoresInput = {
-    where: entradas_mercaderiaWhereUniqueInput
-    update: XOR<entradas_mercaderiaUpdateWithoutProveedoresInput, entradas_mercaderiaUncheckedUpdateWithoutProveedoresInput>
-    create: XOR<entradas_mercaderiaCreateWithoutProveedoresInput, entradas_mercaderiaUncheckedCreateWithoutProveedoresInput>
-  }
-
-  export type entradas_mercaderiaUpdateWithWhereUniqueWithoutProveedoresInput = {
-    where: entradas_mercaderiaWhereUniqueInput
-    data: XOR<entradas_mercaderiaUpdateWithoutProveedoresInput, entradas_mercaderiaUncheckedUpdateWithoutProveedoresInput>
-  }
-
-  export type entradas_mercaderiaUpdateManyWithWhereWithoutProveedoresInput = {
-    where: entradas_mercaderiaScalarWhereInput
-    data: XOR<entradas_mercaderiaUpdateManyMutationInput, entradas_mercaderiaUncheckedUpdateManyWithoutProveedoresInput>
-  }
-
-  export type entradas_mercaderiaScalarWhereInput = {
-    AND?: entradas_mercaderiaScalarWhereInput | entradas_mercaderiaScalarWhereInput[]
-    OR?: entradas_mercaderiaScalarWhereInput[]
-    NOT?: entradas_mercaderiaScalarWhereInput | entradas_mercaderiaScalarWhereInput[]
-    id?: IntFilter<"entradas_mercaderia"> | number
-    fecha?: DateTimeFilter<"entradas_mercaderia"> | Date | string
-    proveedor_id?: IntFilter<"entradas_mercaderia"> | number
-    numero_factura?: StringNullableFilter<"entradas_mercaderia"> | string | null
-    total?: DecimalFilter<"entradas_mercaderia"> | Decimal | DecimalJsLike | number | string
-    notas?: StringNullableFilter<"entradas_mercaderia"> | string | null
-    created_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"entradas_mercaderia"> | Date | string | null
-  }
-
   export type pedidosCreateWithoutVendedoresInput = {
     numero: string
     fecha: Date | string
@@ -25582,47 +25258,6 @@ export namespace Prisma {
     cantidad?: IntFieldUpdateOperationsInput | number
     precio_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type entradas_mercaderiaCreateManyProveedoresInput = {
-    id?: number
-    fecha: Date | string
-    numero_factura?: string | null
-    total?: Decimal | DecimalJsLike | number | string
-    notas?: string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type entradas_mercaderiaUpdateWithoutProveedoresInput = {
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    detalle_entradas_mercaderia?: detalle_entradas_mercaderiaUpdateManyWithoutEntradas_mercaderiaNestedInput
-  }
-
-  export type entradas_mercaderiaUncheckedUpdateWithoutProveedoresInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    detalle_entradas_mercaderia?: detalle_entradas_mercaderiaUncheckedUpdateManyWithoutEntradas_mercaderiaNestedInput
-  }
-
-  export type entradas_mercaderiaUncheckedUpdateManyWithoutProveedoresInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
-    numero_factura?: NullableStringFieldUpdateOperationsInput | string | null
-    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
