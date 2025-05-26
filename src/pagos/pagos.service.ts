@@ -52,7 +52,7 @@ export class PagosService {
       });
 
       // Update order status if fully paid
-      if (totalPagado >= Number(pedido.total)) {
+      if (totalPagado >= Number(pedido.subtotal)) {
         await prisma.pedidos.update({
           where: { id: createPagoDto.pedido_id },
           data: {
@@ -281,7 +281,7 @@ export class PagosService {
         );
 
         // Update order status if not fully paid
-        if (totalPagado < Number(pago.pedidos.total)) {
+        if (totalPagado < Number(pago.pedidos.subtotal)) {
           await prisma.pedidos.update({
             where: { id: pago.pedido_id },
             data: {
