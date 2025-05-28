@@ -8,92 +8,132 @@ import {
   Param,
   Query,
   UsePipes,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname, join } from 'path';
 import { ProductosService } from './productos.service';
 import {
   CreateProductoDto,
-  CreateProductoSchema,
   UpdateProductoDto,
+  CreateProductoSchema,
   UpdateProductoSchema,
 } from './dto/producto.dto';
 import { ZodValidationPipe } from '../common/zod/zod-validation.pipe';
-import { PaginationDto, PaginationSchema } from '../common/dto/pagination.dto';
+import { CoerciveProductoPipe } from './pipes/coercive-producto.pipe';
+import { CoerciveUpdateProductoPipe } from './pipes/coercive-update-producto.pipe';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ParseIntPipe } from '@nestjs/common';
+
+// Configuración de almacenamiento para Multer
+const multerConfig = {
+  storage: diskStorage({
+    destination: join(__dirname, '..', '..', 'uploads', 'productos'),
+    filename: (req, file, callback) => {
+      const randomName = Array(32)
+        .fill(null)
+        .map(() => Math.round(Math.random() * 16).toString(16))
+        .join('');
+      return callback(null, `${randomName}${extname(file.originalname)}`);
+    },
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
+};
 
 @ApiTags('productos')
 @Controller('productos')
 export class ProductosController {
   constructor(private readonly productosService: ProductosService) {}
 
-  @ApiOperation({ summary: 'Create a new product' })
+  @ApiOperation({ summary: 'Crear un producto con imagen' })
   @ApiResponse({
     status: 201,
-    description: 'The product has been successfully created.',
+    description: 'Producto creado exitosamente.',
   })
-  @UsePipes(new ZodValidationPipe(CreateProductoSchema))
+  @UseInterceptors(FileInterceptor('imagen', multerConfig))
   @Post()
-  create(@Body() createProductoDto: CreateProductoDto) {
-    return this.productosService.create(createProductoDto);
+  create(
+    @Body(new ZodValidationPipe(CreateProductoSchema))
+    createProductoDto: CreateProductoDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    console.log('Datos recibidos:', createProductoDto);
+    console.log('Archivo recibido:', file);
+
+    const productoConImagen = {
+      ...createProductoDto,
+      imagen: file ? `/uploads/productos/${file.filename}` : undefined,
+    };
+
+    return this.productosService.create(productoConImagen);
   }
 
-  @ApiOperation({ summary: 'Get all products' })
-  @ApiResponse({ status: 200, description: 'Return all products.' })
-  @UsePipes(new ZodValidationPipe(PaginationSchema))
+  @ApiOperation({ summary: 'Obtener todos los productos' })
+  @ApiResponse({ status: 200, description: 'Lista de productos.' })
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.productosService.findAll(paginationDto);
   }
 
-  @ApiOperation({ summary: 'Get products by category' })
-  @ApiResponse({ status: 200, description: 'Return products by category.' })
+  @ApiOperation({ summary: 'Buscar productos por categoría' })
+  @ApiResponse({
+    status: 200,
+    description: 'Productos encontrados por categoría.',
+  })
   @Get('categoria/:categoriaId')
   findByCategoria(
-    @Param('categoriaId') categoriaId: number,
+    @Param('categoriaId', ParseIntPipe) categoriaId: number,
     @Query() paginationDto: PaginationDto,
   ) {
-    return this.productosService.findByCategoria(+categoriaId, paginationDto);
+    return this.productosService.findByCategoria(categoriaId, paginationDto);
   }
 
-  @ApiOperation({ summary: 'Get a product by code' })
-  @ApiResponse({ status: 200, description: 'Return the product.' })
-  @ApiResponse({ status: 404, description: 'Product not found.' })
+  @ApiOperation({ summary: 'Buscar producto por código' })
+  @ApiResponse({ status: 200, description: 'Producto encontrado.' })
+  @ApiResponse({ status: 404, description: 'Producto no encontrado.' })
   @Get('codigo/:codigo')
   findByCodigo(@Param('codigo') codigo: string) {
     return this.productosService.findByCodigo(codigo);
   }
 
-  @ApiOperation({ summary: 'Get a product by id' })
-  @ApiResponse({ status: 200, description: 'Return the product.' })
-  @ApiResponse({ status: 404, description: 'Product not found.' })
+  @ApiOperation({ summary: 'Buscar producto por ID' })
+  @ApiResponse({ status: 200, description: 'Producto encontrado.' })
+  @ApiResponse({ status: 404, description: 'Producto no encontrado.' })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.productosService.findOne(id);
   }
 
-  @ApiOperation({ summary: 'Update a product' })
-  @ApiResponse({
-    status: 200,
-    description: 'The product has been successfully updated.',
-  })
-  @ApiResponse({ status: 404, description: 'Product not found.' })
+  @ApiOperation({ summary: 'Actualizar un producto' })
+  @ApiResponse({ status: 200, description: 'Producto actualizado.' })
+  @ApiResponse({ status: 404, description: 'Producto no encontrado.' })
+  @UseInterceptors(FileInterceptor('imagen', multerConfig))
   @Put(':id')
   update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body(new ZodValidationPipe(UpdateProductoSchema))
     updateProductoDto: UpdateProductoDto,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.productosService.update(+id, updateProductoDto);
+    console.log('Datos recibidos:', updateProductoDto);
+    console.log('Archivo recibido:', file);
+
+    // Si se proporciona un nuevo archivo, actualiza la imagen
+    if (file) {
+      updateProductoDto.imagen = `/uploads/productos/${file.filename}`;
+    }
+
+    return this.productosService.update(id, updateProductoDto);
   }
 
-  @ApiOperation({ summary: 'Delete a product' })
-  @ApiResponse({
-    status: 200,
-    description: 'The product has been successfully deleted.',
-  })
-  @ApiResponse({ status: 404, description: 'Product not found.' })
+  @ApiOperation({ summary: 'Eliminar un producto' })
+  @ApiResponse({ status: 200, description: 'Producto eliminado.' })
+  @ApiResponse({ status: 404, description: 'Producto no encontrado.' })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productosService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.productosService.remove(id);
   }
 }

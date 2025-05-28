@@ -5,14 +5,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
-        # Los puertos serán insertados automáticamente aquí
+    volumes:
+      - ../persisted-data/uploads:/app/uploads # Carpeta donde se almacenan las imágenes
     devices:
-      - '/dev/ttyS3:/dev/ttyS3' # Maps COM3 to container
+      - '/dev/ttyS3:/dev/ttyS3'
     environment:
       DATABASE_URL: mysql://root:pedidospassword@sistema_pedidos_back:3306/sistema_pedidos
     networks:
       - shared_network
-    privileged: true # May be needed for serial port access
+    privileged: true
 
 networks:
   shared_network:

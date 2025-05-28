@@ -38,7 +38,7 @@ export class ProductosService {
     const [items, total] = await Promise.all([
       this.prisma.productos.findMany({
         skip,
-        take: limit,
+        //take: limit,
         orderBy: orderBy
           ? { [orderBy]: orderDirection }
           : { id: orderDirection },
@@ -135,7 +135,7 @@ export class ProductosService {
   async update(id: number, updateProductoDto: UpdateProductoDto) {
     try {
       // Construimos el objeto data explícitamente
-      const data: any = {};
+      const data: UpdateProductoDto = {};
 
       if (updateProductoDto.codigo !== undefined) {
         data.codigo = updateProductoDto.codigo;
