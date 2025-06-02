@@ -6,7 +6,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ../persisted-data/uploads:/app/uploads # Carpeta donde se almacenan las imágenes
+      #- ../persisted-data/uploads:/app/uploads  Carpeta donde se almacenan las imágenes
+      - /var/pedidos_data/uploads:/app/uploads
     devices:
       - '/dev/ttyS3:/dev/ttyS3'
     environment:
